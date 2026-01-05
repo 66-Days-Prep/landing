@@ -65,7 +65,7 @@ function VerifyEmailContent() {
 
     // If app doesn't open, redirect to App Store after delay
     setTimeout(() => {
-      window.location.href = 'https://apps.apple.com/app/66-days-prep/id6504857066'
+      window.location.href = 'https://apps.apple.com/us/app/66-days-prep-career-tracker/id6752681422'
     }, 1500)
   }
 
