@@ -61,7 +61,7 @@ function VerifyEmailContent() {
 
   const openApp = () => {
     // Try to open the app, fall back to App Store
-    window.location.href = '66daysprep://'
+    window.location.href = 'daysprep66://'
 
     // If app doesn't open, redirect to App Store after delay
     setTimeout(() => {
