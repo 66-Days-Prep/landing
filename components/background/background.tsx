@@ -14,13 +14,6 @@ const Background: React.FC = () => {
           linear-gradient(180deg, #131315 0%, #0E0E10 100%)
         `}
       />
-      <Box
-        position="absolute"
-        inset={0}
-        opacity={0.22}
-        backgroundImage="linear-gradient(rgba(255,255,255,0.045) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.045) 1px, transparent 1px)"
-        backgroundSize="80px 80px"
-      />
     </Box>
   )
 }
