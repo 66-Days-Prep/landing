@@ -22,7 +22,7 @@ export const Header = (props: HeaderProps) => {
     return scrollY.on('change', () => setY(scrollY.get()))
   }, [scrollY])
   
-  const bg = useColorModeValue('whiteAlpha.700', 'rgba(29, 32, 37, 0.7)')
+  const bg = useColorModeValue('rgba(245, 238, 221, 0.78)', 'rgba(24, 19, 15, 0.78)')
   
   return (
     <Box
@@ -33,7 +33,7 @@ export const Header = (props: HeaderProps) => {
       position="fixed"
       backdropFilter="blur(5px)"
       zIndex="sticky"
-      borderColor="whiteAlpha.100"
+      borderColor="rgba(196, 176, 136, 0.14)"
       transitionProperty="common"
       transitionDuration="normal"
       bg={y > height ? bg : ''}

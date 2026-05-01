@@ -4,18 +4,22 @@ import { Metadata } from 'next'
 import { Provider } from './provider'
 
 export const metadata: Metadata = {
-  title: '66 Days Prep - AI-Powered Career Coach',
-  description: '66 Days Prep is the leading AI-powered career coach and daily tracking tool that helps you stay consistent, build interview skills, and prepare for careers in banking and consulting in just 66 days.',
+  metadataBase: new URL('https://www.66daysprep.com'),
+  title: '66 Days Prep - Daily Banking & Consulting Prep',
+  description:
+    '66 Days Prep is an AI-powered daily prep system for banking and consulting interviews, with practice drills, streak tracking, resume review, and focused study tools.',
   openGraph: {
-    title: '66 Days Prep - AI-Powered Career Coach',
-    description: '66 Days Prep is the leading AI-powered career coach and daily tracking tool that helps you stay consistent, build interview skills, and prepare for careers in banking and consulting in just 66 days.',
+    title: '66 Days Prep - Daily Banking & Consulting Prep',
+    description:
+      '66 Days Prep is an AI-powered daily prep system for banking and consulting interviews, with practice drills, streak tracking, resume review, and focused study tools.',
     siteName: '66 Days Prep',
     type: 'website',
   },
   twitter: {
     card: 'summary_large_image',
-    title: '66 Days Prep - AI-Powered Career Coach',
-    description: '66 Days Prep is the leading AI-powered career coach and daily tracking tool that helps you stay consistent, build interview skills, and prepare for careers in banking and consulting in just 66 days.',
+    title: '66 Days Prep - Daily Banking & Consulting Prep',
+    description:
+      '66 Days Prep is an AI-powered daily prep system for banking and consulting interviews, with practice drills, streak tracking, resume review, and focused study tools.',
   },
 }
 
@@ -42,7 +46,7 @@ export default function Layout(props: { children: React.ReactNode }) {
           sizes="16x16"
           href="/static/favicons/favicon-16x16.png"
         />
-        <link rel="manifest" href="/static/favicons/manifest.json" />
+        <link rel="manifest" href="/static/favicons/site.webmanifest" />
       </head>
       <body className={`chakra-ui-${colorMode}`}>
         <ColorModeScript initialColorMode={colorMode} />

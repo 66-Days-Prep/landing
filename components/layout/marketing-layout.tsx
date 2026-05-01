@@ -2,7 +2,7 @@
 
 import { Box, SkipNavContent, SkipNavLink } from '@chakra-ui/react'
 
-import { ReactNode } from 'react'
+import { CSSProperties, ReactNode, useState } from 'react'
 
 import {
   AnnouncementBanner,
@@ -20,11 +20,32 @@ interface LayoutProps {
 
 export const MarketingLayout: React.FC<LayoutProps> = (props) => {
   const { children, announcementProps, headerProps, footerProps } = props
+  const [bannerDismissed, setBannerDismissed] = useState(false)
+
+  const visibleAnnouncementProps =
+    announcementProps && !bannerDismissed ? announcementProps : null
+  const announcementOffset = visibleAnnouncementProps ? '42px' : '0px'
+
+  const handleDismissAnnouncement = () => {
+    setBannerDismissed(true)
+  }
+
   return (
-    <Box>
+    <Box
+      style={
+        {
+          '--announcement-offset': announcementOffset,
+        } as CSSProperties
+      }
+    >
       <SkipNavLink>Skip to content</SkipNavLink>
-      {announcementProps ? <AnnouncementBanner {...announcementProps} /> : null}
-      <Header {...headerProps} />
+      {visibleAnnouncementProps ? (
+        <AnnouncementBanner
+          {...visibleAnnouncementProps}
+          onDismiss={handleDismissAnnouncement}
+        />
+      ) : null}
+      <Header top={visibleAnnouncementProps ? '42px' : undefined} {...headerProps} />
       <Box as="main">
         <SkipNavContent />
         {children}

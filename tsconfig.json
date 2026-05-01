@@ -18,9 +18,12 @@
     "baseUrl": ".",
     "paths": {
       "#components/*": ["./components/*"],
+      "#constants": ["./constants"],
+      "#constants/*": ["./constants/*"],
       "#hooks/*": ["./hooks/*"],
       "#data/*": ["./data/*"],
-      "#theme": ["./theme"]
+      "#theme": ["./theme"],
+      "#theme/*": ["./theme/*"]
     },
     "plugins": [
       {

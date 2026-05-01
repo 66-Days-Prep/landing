@@ -3,6 +3,7 @@ import {
   BoxProps,
   Container,
   Flex,
+  Image,
   SimpleGrid,
   Stack,
   Text,
@@ -10,6 +11,7 @@ import {
   WrapItem,
 } from '@chakra-ui/react'
 import { Link, LinkProps } from '@saas-ui/react'
+import { APP_STORE_LINKS, ASSETS } from '#constants'
 import siteConfig from '#data/config'
 
 export interface FooterProps extends BoxProps {
@@ -20,7 +22,15 @@ export const Footer: React.FC<FooterProps> = (props) => {
   const { columns = 2, ...rest } = props
   
   return (
-    <Box bg="white" _dark={{ bg: 'gray.900' }} width="100%" {...rest}>
+    <Box
+      bg="rgba(14, 14, 16, 0.96)"
+      borderTop="1px solid"
+      borderColor="rgba(196, 176, 136, 0.18)"
+      position="relative"
+      zIndex={1}
+      width="100%"
+      {...rest}
+    >
       <Container maxW="container.2xl" px="8" py="8" width="100%">
         {/* Change columns to be responsive - 1 on mobile, 2 on larger screens */}
         <SimpleGrid columns={{ base: 1, md: columns }} spacing={{ base: 8, md: 0 }}>
@@ -33,7 +43,21 @@ export const Footer: React.FC<FooterProps> = (props) => {
                 {siteConfig.seo.description}
               </Text>
             </Stack>
-            <Copyright>{siteConfig.footer.copyright}</Copyright>
+            <Stack spacing="4" alignItems="flex-start">
+              <Link
+                href={APP_STORE_LINKS.ios}
+                isExternal
+                _hover={{ opacity: 0.8 }}
+                transition="opacity 0.2s"
+              >
+                <Image
+                  src={ASSETS.images.appStoreBadge}
+                  alt="Download on the App Store"
+                  height="40px"
+                />
+              </Link>
+              <Copyright>{siteConfig.footer.copyright}</Copyright>
+            </Stack>
           </Stack>
           
           {/* Use Wrap for better mobile layout of links */}

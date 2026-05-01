@@ -64,9 +64,9 @@ export const Feature: React.FC<FeatureProps> = (props) => {
   const direction = pos === 'left' ? 'row' : 'column'
   
   return (
-    <Stack sx={styles.container} direction={direction}>
+    <Stack sx={styles.container} direction={direction} position="relative" zIndex={1}>
       {icon && (
-        <Circle 
+        <Circle
           sx={{
             ...styles.icon,
             ...(iconBg && { bg: iconBg })  // Override background if iconBg is provided

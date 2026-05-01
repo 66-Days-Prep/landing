@@ -22,15 +22,27 @@ export const HighlightsItem: React.FC<HighlightBoxProps> = (props) => {
   return (
     <GridItem
       as={Card}
-      borderRadius="md"
+      borderRadius="24px"
       p="8"
       flex="1 0"
       alignItems="flex-start"
       spacing="8"
       overflow="hidden"
-      position="relative"
-      bg="white"
-      _dark={{ bg: 'gray.800' }}
+      bg="rgba(245, 238, 221, 0.055)"
+      backdropFilter="blur(12px)"
+      borderWidth="1px"
+      borderColor="rgba(196, 176, 136, 0.14)"
+      boxShadow="0 4px 22px rgba(0, 0, 0, 0.2)"
+      _hover={{
+        bg: 'rgba(245, 238, 221, 0.08)',
+        transform: 'translateY(-2px)',
+        boxShadow: '0 8px 28px rgba(0, 0, 0, 0.24)',
+      }}
+      transition="all 0.3s ease"
+      _dark={{
+        bg: 'rgba(245, 238, 221, 0.055)',
+        borderColor: 'rgba(196, 176, 136, 0.14)',
+      }}
       {...rest}
     >
       {title && (
@@ -100,14 +112,12 @@ export const Highlights: React.FC<SectionProps> = (props) => {
   return (
     <Section
       innerWidth="container.xl"
-      position="relative"
       overflow="hidden"
       {...rest}
     >
       <Grid
         templateColumns={{ base: 'repeat(1, 1fr)', lg: 'repeat(3, 1fr)' }}
         gap={8}
-        position="relative"
       >
         {children}
       </Grid>

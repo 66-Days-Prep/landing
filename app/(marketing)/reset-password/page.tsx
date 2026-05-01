@@ -88,7 +88,7 @@ function ResetPasswordContent() {
 
     // If app doesn't open, redirect to App Store after delay
     setTimeout(() => {
-      window.location.href = 'https://apps.apple.com/app/66-days-prep/id6504857066'
+      window.location.href = 'https://apps.apple.com/us/app/66-days-prep-career-tracker/id6752681422'
     }, 1500)
   }
 
@@ -171,14 +171,14 @@ function ResetPasswordContent() {
       {state === 'success' && (
         <>
           <Box
-            bg="green.100"
+            bg="primary.100"
             borderRadius="full"
             p={4}
-            _dark={{ bg: 'green.900' }}
+            _dark={{ bg: 'primary.900' }}
           >
-            <Icon as={FiCheckCircle} boxSize={12} color="green.500" />
+            <Icon as={FiCheckCircle} boxSize={12} color="primary.400" />
           </Box>
-          <Heading as="h1" size="lg" color="green.500">
+          <Heading as="h1" size="lg" color="primary.300">
             Password Reset!
           </Heading>
           <Text color="gray.600" _dark={{ color: 'gray.400' }}>

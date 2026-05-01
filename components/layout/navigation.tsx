@@ -1,8 +1,9 @@
-import { HStack, Flex, Box, Grid, GridItem } from '@chakra-ui/react'
+import { HStack, Flex, Box, Grid, GridItem, Icon, Text } from '@chakra-ui/react'
 import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
+import { FiArrowRight } from 'react-icons/fi'
 import { MobileNavButton } from '#components/mobile-nav'
 import { MobileNavContent } from '#components/mobile-nav'
 import { NavLink } from '#components/nav-link'
@@ -50,20 +51,23 @@ const Navigation: React.FC<NavigationProps> = ({
         <GridItem />
         
         {/* Center column - navigation links */}
-        <GridItem>
-          <Flex justify="center">
+        <GridItem display="flex" alignItems="center">
+          <Flex justify="center" align="center" h="40px">
             {navLinks.map(({ href, id, ...props }, i) => {
               return (
                 <NavLink
-                  display={['none', null, 'block']}
+                  display={['none', null, 'flex']}
                   href={href || `/#${id}`}
                   key={i}
                   mx={2}
                   px={3}
+                  h="36px"
+                  fontSize="md"
                   borderRadius="md"
                   transition="all 0.2s ease"
+                  alignItems="center"
                   _hover={{
-                    bg: 'rgba(255, 255, 255, 0.1)',
+                    bg: 'rgba(245, 238, 221, 0.10)',
                     backdropFilter: 'blur(10px)',
                   }}
                   isActive={
@@ -82,16 +86,25 @@ const Navigation: React.FC<NavigationProps> = ({
         </GridItem>
         
         {/* Right column - Download button, theme toggle, mobile nav */}
-        <GridItem>
+        <GridItem display="flex" alignItems="center" justifyContent="flex-end">
           {/* Apply right padding conditionally based on screen size and mobileMode */}
           <HStack 
-            spacing={2} 
+            spacing={3} 
             justify="flex-end" 
+            align="center"
             pr={insetButtons ? { base: mobileMode ? 0 : 6, lg: 8 } : 0}
           >
             <NavLink
-              display={['none', null, 'block']}
+              display={['none', null, 'flex']}
               href={downloadButton.href || `/#${downloadButton.id}`}
+              borderRadius="full"
+              px="1"
+              minW="148px"
+              fontWeight="extrabold"
+              h="38px"
+              position="relative"
+              alignItems="center"
+              justifyContent="flex-start"
               isActive={
                 !!(
                   (downloadButton.id && activeId === downloadButton.id) ||
@@ -99,20 +112,41 @@ const Navigation: React.FC<NavigationProps> = ({
                 )
               }
               {...downloadButton}
-              bg="black"
-              color="white"
-              borderRadius="full"
-              _hover={{ bg: "gray.800" }}
-              variant={undefined}
             >
-              {downloadButton.label}
+              <Box
+                position="absolute"
+                left="4px"
+                top="50%"
+                transform="translateY(-50%)"
+                w="30px"
+                h="30px"
+                borderRadius="full"
+                bg="black"
+                color="white"
+                display="inline-flex"
+                alignItems="center"
+                justifyContent="center"
+              >
+                <Icon as={FiArrowRight} boxSize="13px" />
+              </Box>
+              <Box
+                position="absolute"
+                left="36px"
+                right="8px"
+                top="50%"
+                transform="translateY(-50%)"
+                textAlign="center"
+                lineHeight="1"
+              >
+                <Text as="span" fontWeight="bold" fontSize="md">
+                  {downloadButton.label}
+                </Text>
+              </Box>
             </NavLink>
             
-            <Box>
-              <ThemeToggle />
-            </Box>
+            <ThemeToggle />
             
-            <Box>
+            <Box display={{ base: 'block', md: 'none' }}>
               <MobileNavButton
                 ref={mobileNavBtnRef}
                 aria-label="Open Menu"

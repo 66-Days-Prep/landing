@@ -1,16 +1,31 @@
-import { HStack, Text } from '@chakra-ui/react'
+import { HStack, Text, VStack } from '@chakra-ui/react'
+
+import { APP_STORE_LINKS } from '#constants'
 
 export default {
   title: 'Pricing',
   description:
-    'Simple, Open Pricing',
+    'Simple, transparent pricing for all',
   plans: [
-    /*
     {
       id: 'free',
-      title: '7-Day Free Trial',
-      description: 'Try full features for free',
-      price: 'Free',
+      title: 'Free',
+      description: 'Try full features for FREE',
+      price: (
+        <VStack spacing="1" align="flex-start">
+          <Text
+            fontSize="xl"
+            fontWeight="normal"
+            visibility="hidden"
+            userSelect="none"
+          >
+            $15.99 / month
+          </Text>
+          <Text fontSize="5xl" fontWeight="bold">
+            Free
+          </Text>
+        </VStack>
+      ),
       features: [
         {
           title: 'Explore all drills, tools, and the AI coach with no limits',
@@ -23,15 +38,34 @@ export default {
         },
       ],
       action: {
-        href: 'https://apps.apple.com/us/app/interview-pilot-ai-copilot/id6752681422',
+        href: APP_STORE_LINKS.ios,
+        label: 'Start free',
       },
     },
-    */
     {
       id: 'monthly',
       title: 'Monthly',
       description: 'Popular',
-      price: '$15.99 / month',
+      price: (
+        <VStack spacing="1" align="flex-start">
+          <Text
+            fontSize="xl"
+            color="gray.500"
+            textDecoration="line-through"
+            fontWeight="normal"
+          >
+            $39.99 / month
+          </Text>
+          <HStack spacing="2" align="baseline">
+            <Text fontSize="5xl" fontWeight="bold" color="green.500">
+              $15.99
+            </Text>
+            <Text fontSize="md" color="muted" fontWeight="normal">
+              / month
+            </Text>
+          </HStack>
+        </VStack>
+      ),
       isRecommended: true,
       features: [
         {
@@ -62,14 +96,34 @@ export default {
         },
       ],
       action: {
-        href: 'https://apps.apple.com/us/app/interview-pilot-ai-copilot/id6752681422',
+        href: APP_STORE_LINKS.ios,
+        label: 'Start monthly',
       },
     },
     {
       id: 'yearly',
       title: 'Yearly',
       description: 'Best Value',
-      price: '$49.99 / year',
+      price: (
+        <VStack spacing="1" align="flex-start">
+          <Text
+            fontSize="xl"
+            color="gray.500"
+            textDecoration="line-through"
+            fontWeight="normal"
+          >
+            $149.99 / year
+          </Text>
+          <HStack spacing="2" align="baseline">
+            <Text fontSize="5xl" fontWeight="bold" color="green.500">
+              $59.99
+            </Text>
+            <Text fontSize="md" color="muted" fontWeight="normal">
+              / year
+            </Text>
+          </HStack>
+        </VStack>
+      ),
       features: [
         {
           title: 'AI-powered coach for personalized feedback',
@@ -99,7 +153,8 @@ export default {
         },
       ],
       action: {
-        href: 'https://apps.apple.com/us/app/interview-pilot-ai-copilot/id6752681422',
+        href: APP_STORE_LINKS.ios,
+        label: 'Start yearly',
       },
     },
   ],

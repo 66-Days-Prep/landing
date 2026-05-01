@@ -4,42 +4,63 @@ import { theme as baseTheme } from '@saas-ui/react'
 import components from './components'
 import { fontSizes } from './foundations/typography'
 
-// Define your custom ivy green colors
 const colors = {
-  primary: {
-    50: '#f0f9f8',
-    100: '#d4f0ec',
-    200: '#a9e2d8',
-    300: '#7dd3c4',
-    400: '#4eb89f',
-    500: '#1f8567', // Rich, deep ivy green
-    600: '#1b7058',
-    700: '#175b49',
-    800: '#13463a',
-    900: '#0f312b',
+  brand: {
+    ink: '#1C241F',
+    cream: '#F5EEDD',
+    champagne: '#C4B088',
+    taupe: '#8A7557',
+    dark: '#0E0E10',
+    darkRaised: '#1C1C1F',
   },
-  // You can keep or modify other colors as needed
+  primary: {
+    50: '#FEFDFC',
+    100: '#F5EEDD',
+    200: '#E8DFC9',
+    300: '#D8C79D',
+    400: '#C4B088',
+    500: '#B89D74',
+    600: '#9C845F',
+    700: '#8A7557',
+    800: '#6B5744',
+    900: '#2A2119',
+  },
+  secondary: {
+    50: '#FFF9F0',
+    100: '#F3E4CF',
+    200: '#E6C896',
+    300: '#D4AF7A',
+    400: '#C5B291',
+    500: '#8B7355',
+    600: '#6A4E3A',
+    700: '#4A392B',
+    800: '#2A2119',
+    900: '#18130F',
+  },
 }
 
-// Customize the button component
 const customComponents = {
   ...components,
   Button: {
-    // Extend the current button styles
     variants: {
       primary: {
-        bg: 'primary.500',
-        color: 'white', // White text for good contrast with ivy green
+        bg: 'primary.100',
+        color: 'brand.ink',
+        border: '1px solid',
+        borderColor: 'primary.700',
+        boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.22), 0 3px 0 #C5B291',
         _hover: {
-          bg: 'primary.600',
-          color: 'white',
+          bg: 'primary.200',
+          color: 'brand.ink',
+          transform: 'translateY(-1px)',
         },
         _active: {
-          bg: 'primary.700',
-          color: 'white',
+          bg: 'primary.300',
+          color: 'brand.ink',
+          transform: 'translateY(1px)',
+          boxShadow: 'inset 0 1px 0 rgba(255, 255, 255, 0.16), 0 1px 0 #C5B291',
         },
       },
-      // You can also customize other button variants here if needed
     },
   },
 }
@@ -57,9 +78,10 @@ export const theme = extendTheme(
           color: 'gray.900',
           bg: 'white',
           fontSize: 'lg',
+          overflowX: 'hidden',
           _dark: {
             color: 'white',
-            bg: 'gray.900',
+            bg: '#0E0E10',
           },
         },
       }),

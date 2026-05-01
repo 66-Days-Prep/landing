@@ -86,14 +86,14 @@ function VerifyEmailContent() {
       {state === 'success' && (
         <>
           <Box
-            bg="green.100"
+            bg="primary.100"
             borderRadius="full"
             p={4}
-            _dark={{ bg: 'green.900' }}
+            _dark={{ bg: 'primary.900' }}
           >
-            <Icon as={FiCheckCircle} boxSize={12} color="green.500" />
+            <Icon as={FiCheckCircle} boxSize={12} color="primary.400" />
           </Box>
-          <Heading as="h1" size="lg" color="green.500">
+          <Heading as="h1" size="lg" color="primary.300">
             Email Verified!
           </Heading>
           <Text color="gray.600" _dark={{ color: 'gray.400' }}>

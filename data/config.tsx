@@ -1,18 +1,25 @@
 import { Button } from '@chakra-ui/react'
 import { Link } from '@saas-ui/react'
 import { NextSeoProps } from 'next-seo'
-import { FaGithub, FaInstagram, FaLinkedin, FaLinkedinIn, FaTiktok, FaTwitter } from 'react-icons/fa'
+import { FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa'
 import { FiCheck } from 'react-icons/fi'
 import { Logo } from './logo'
+import {
+  COMPANY_LINKS,
+  INTERNAL_ROUTES,
+  SOCIAL_LINKS,
+  SUPPORT_EMAIL,
+} from '#constants'
 
 const siteConfig = {
   logo: Logo,
   seo: {
     title: '66 Days Prep',
-    description: '66 Days Prep is the leading AI-powered career coach and daily tracking tool that helps you stay consistent, build interview skills, and prepare for careers in banking and consulting in just 66 days.',
+    description:
+      '66 Days Prep is an AI-powered daily prep system for students and professionals preparing for banking and consulting interviews.',
   } as NextSeoProps,
-  termsUrl: '/terms',
-  privacyUrl: '/privacy',
+  termsUrl: INTERNAL_ROUTES.terms,
+  privacyUrl: INTERNAL_ROUTES.privacy,
   header: {
     links: [
       {
@@ -37,7 +44,7 @@ const siteConfig = {
       },
       {
         label: 'Download',
-        href: '/download/hero',  // Changed from direct App Store URL
+        href: INTERNAL_ROUTES.downloadHero,
         variant: 'primary',
       },
     ],
@@ -45,33 +52,33 @@ const siteConfig = {
   footer: {
     copyright: (
       <>
-        Developed by{' '}
-        <Link href="https://www.66daysprep.com">Uru Technologies LLC</Link> © 2025 • All Rights Reserved
+        Developed by <Link href={COMPANY_LINKS.website}>Uru Technologies LLC</Link>{' '}
+        © 2025-2026 • All Rights Reserved
       </>
     ),
     links: [
       {
-        href: 'mailto:Support@sellwithuru.com',
+        href: `mailto:${SUPPORT_EMAIL}`,
         label: 'Contact',
       },
       {
-        href: '/terms',
+        href: INTERNAL_ROUTES.terms,
         label: 'Terms of Service',
       },
       {
-        href: '/privacy',
+        href: INTERNAL_ROUTES.privacy,
         label: 'Privacy Policy',
       },
       {
-        href: 'https://linkedin.com/66daysprep',
+        href: SOCIAL_LINKS.linkedin,
         label: <FaLinkedinIn size="18" />,
       },
       {
-        href: 'https://www.tiktok.com/66daysprep',
+        href: SOCIAL_LINKS.tiktok,
         label: <FaTiktok size="18" />,
       },
       {
-        href: 'https://www.instagram.com/66daysprep',
+        href: SOCIAL_LINKS.instagram,
         label: <FaInstagram size="18" />,
       },
     ],

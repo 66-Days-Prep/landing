@@ -1,0 +1,7 @@
+export { AppStoreBanner } from './AppStoreBanner'
+export { FaqSection } from './FaqSection'
+export { FeaturesSection } from './FeaturesSection'
+export { HeroSection } from './HeroSection'
+export { HighlightsSection } from './HighlightsSection'
+export { PricingSection } from './PricingSection'
+export { TestimonialsSection } from './TestimonialsSection'

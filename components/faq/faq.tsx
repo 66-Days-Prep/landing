@@ -16,6 +16,7 @@ interface FaqProps extends Omit<SectionProps, 'title' | 'children'> {
   title?: React.ReactNode
   description?: React.ReactNode
   items: { q: React.ReactNode; a: React.ReactNode }[]
+  align?: 'left' | 'center' | { base: 'center'; md: 'left' }
 }
 
 export const Faq: React.FC<FaqProps> = (props) => {
@@ -23,19 +24,20 @@ export const Faq: React.FC<FaqProps> = (props) => {
     title = 'Frequently asked questions',
     description,
     items = [],
+    align,
   } = props
 
   return (
     <Section id="faq">
-      <SectionTitle title={title} description={description} />
+      <SectionTitle title={title} description={description} align={align} />
       <Container maxW="container.md" px={{ base: 4, md: 8 }}>
         <Box
-          bg="rgba(255, 255, 255, 0.05)"
+          bg="rgba(245, 238, 221, 0.05)"
           backdropFilter="blur(10px)"
-          borderRadius="xl"
+          borderRadius="24px"
           overflow="hidden"
           borderWidth="1px"
-          borderColor="rgba(255, 255, 255, 0.1)"
+          borderColor="rgba(196, 176, 136, 0.14)"
           boxShadow="0 4px 20px rgba(0, 0, 0, 0.1)"
         >
           <Accordion allowToggle>
@@ -43,10 +45,10 @@ export const Faq: React.FC<FaqProps> = (props) => {
               <AccordionItem
                 key={i}
                 border="none"
-                borderBottom={i !== items.length - 1 ? "1px solid rgba(255, 255, 255, 0.06)" : "none"}
+                borderBottom={i !== items.length - 1 ? "1px solid rgba(196, 176, 136, 0.10)" : "none"}
                 transition="all 0.3s ease"
                 _hover={{
-                  bg: "rgba(255, 255, 255, 0.08)",
+                  bg: "rgba(245, 238, 221, 0.08)",
                 }}
               >
                 <AccordionButton
@@ -72,7 +74,7 @@ export const Faq: React.FC<FaqProps> = (props) => {
                   px={6}
                   pt={4}
                   color="muted"
-                  borderTop="1px solid rgba(255, 255, 255, 0.06)"
+                  borderTop="1px solid rgba(196, 176, 136, 0.10)"
                 >
                   <Text whiteSpace="pre-line">
                     {item.a}

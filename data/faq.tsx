@@ -17,7 +17,7 @@ const faq = {
       a: '66 Days Prep keeps you accountable through a visual progress heatmap and 66-day streak tracker. It adapts to your learning pace and shows where you improve most. The app helps you stay focused and consistent until interview day.',
     },
     {
-      q: 'What Tools Do 66 Days Prep Have?',
+      q: 'What Tools Does 66 Days Prep Have?',
       a: 'Inside the app, you’ll find a Pomodoro timer, a screen blocker for focus, quick practice drills, an AI resume checker, and a complete Excel shortcut and formula guide. You can also explore a resource hub filled with interview frameworks and prep materials for both banking and consulting.',
     },
     {
