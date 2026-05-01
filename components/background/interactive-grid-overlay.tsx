@@ -41,11 +41,11 @@ export function InteractiveGridOverlay() {
               y={y}
               width={width}
               height={height}
-              stroke="rgba(245, 238, 221, 0.022)"
+              stroke="rgba(245, 238, 221, 0.012)"
               strokeWidth="1"
               fill={
                 hoveredSquare === index
-                  ? 'rgba(196, 176, 136, 0.07)'
+                  ? 'rgba(196, 176, 136, 0.035)'
                   : 'transparent'
               }
               style={{
