@@ -22,6 +22,7 @@ export const Header = (props: HeaderProps) => {
     return scrollY.on('change', () => setY(scrollY.get()))
   }, [scrollY])
   
+  const isScrolled = y > height
   const bg = useColorModeValue('rgba(245, 238, 221, 0.78)', 'rgba(24, 19, 15, 0.78)')
   
   return (
@@ -31,26 +32,43 @@ export const Header = (props: HeaderProps) => {
       top="0"
       w="full"
       position="fixed"
-      backdropFilter="blur(5px)"
       zIndex="sticky"
-      borderColor="rgba(196, 176, 136, 0.14)"
-      transitionProperty="common"
-      transitionDuration="normal"
-      bg={y > height ? bg : ''}
-      boxShadow={y > height ? 'md' : ''}
-      borderBottomWidth={y > height ? '1px' : ''}
+      pointerEvents="none"
       {...props}
     >
-      {/* Reduced base padding, increased padding only on large screens */}
-      <Container maxW="container.xl" px={{ base: "4", lg: "12" }}> 
-        <Flex width="full" position="relative" py="4">
-          {/* Logo positioned flush left on mobile, with inset on desktop */}
-          <Box
-            position="absolute"
-            left={{ base: "0", lg: "8" }}
-            top="50%"
-            transform="translateY(-50%)"
-          >
+      <Container
+        maxW="container.xl"
+        px={{ base: 0, md: '4', lg: '12' }}
+        py={isScrolled ? { base: 0, md: 3 } : 0}
+        transition="padding 0.32s cubic-bezier(0.22, 1, 0.36, 1)"
+      >
+        <Flex
+          width="full"
+          align="center"
+          gap="4"
+          py={isScrolled ? { base: 4, md: 3 } : 4}
+          pl={isScrolled ? { base: 4, md: 6 } : { base: 4, md: 0 }}
+          pr={isScrolled ? { base: 4, md: 4 } : { base: 4, md: 0 }}
+          bg={isScrolled ? bg : 'transparent'}
+          borderWidth={isScrolled ? { base: '0 0 1px', md: '1px' } : '0'}
+          borderColor={isScrolled ? 'rgba(196, 176, 136, 0.16)' : 'transparent'}
+          borderRadius={isScrolled ? { base: '0', md: 'full' } : '0'}
+          boxShadow={
+            isScrolled
+              ? {
+                  base: '0 10px 28px rgba(0,0,0,0.22)',
+                  md: '0 16px 48px rgba(0,0,0,0.38), 0 2px 12px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.035)',
+                }
+              : '0 0 0 rgba(0,0,0,0), inset 0 0 0 rgba(255,255,255,0)'
+          }
+          backdropFilter={isScrolled ? 'blur(22px) saturate(1.35)' : 'none'}
+          transform={isScrolled ? 'translateY(0)' : { base: 'translateY(0)', md: 'translateY(-2px)' }}
+          transitionProperty="padding, background-color, border-color, border-radius, box-shadow, backdrop-filter, transform"
+          transitionDuration="0.32s"
+          transitionTimingFunction="cubic-bezier(0.22, 1, 0.36, 1)"
+          pointerEvents="auto"
+        >
+          <Box flexShrink={0}>
             <Logo
               onClick={(e) => {
                 if (window.location.pathname === '/') {
@@ -64,8 +82,7 @@ export const Header = (props: HeaderProps) => {
             />
           </Box>
           
-          {/* Navigation */}
-          <Box width="full">
+          <Box flex="1" minW={0}>
             <Navigation centerLinks={true} insetButtons={true} mobileMode={true} />
           </Box>
         </Flex>

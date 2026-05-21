@@ -4,7 +4,6 @@ import { Box } from '@chakra-ui/react'
 import type { NextPage } from 'next'
 
 import Background from '#components/background/background'
-import { InteractiveGridOverlay } from '#components/background/interactive-grid-overlay'
 import {
   AppStoreBanner,
   FaqSection,
@@ -19,7 +18,6 @@ const Home: NextPage = () => {
   return (
     <Box overflowX="hidden">
       <Background />
-      <InteractiveGridOverlay />
 
       <HeroSection />
 
