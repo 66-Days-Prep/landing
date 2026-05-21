@@ -4,6 +4,7 @@ import {
   Container,
   Flex,
   useColorModeValue,
+  useDisclosure,
 } from '@chakra-ui/react'
 import { useScroll } from 'framer-motion'
 import * as React from 'react'
@@ -23,6 +24,8 @@ export const Header = (props: HeaderProps) => {
   }, [scrollY])
   
   const isScrolled = y > height
+  const mobileNav = useDisclosure()
+  const hasHeaderSurface = isScrolled || mobileNav.isOpen
   const bg = useColorModeValue('rgba(245, 238, 221, 0.78)', 'rgba(24, 19, 15, 0.78)')
   
   return (
@@ -49,19 +52,19 @@ export const Header = (props: HeaderProps) => {
           py={isScrolled ? { base: 4, md: 3 } : 4}
           pl={isScrolled ? { base: 4, md: 6 } : { base: 4, md: 0 }}
           pr={isScrolled ? { base: 4, md: 4 } : { base: 4, md: 0 }}
-          bg={isScrolled ? bg : 'transparent'}
-          borderWidth={isScrolled ? { base: '0 0 1px', md: '1px' } : '0'}
-          borderColor={isScrolled ? 'rgba(196, 176, 136, 0.16)' : 'transparent'}
+          bg={hasHeaderSurface ? bg : 'transparent'}
+          borderWidth={hasHeaderSurface ? { base: '0 0 1px', md: '1px' } : '0'}
+          borderColor={hasHeaderSurface ? 'rgba(196, 176, 136, 0.16)' : 'transparent'}
           borderRadius={isScrolled ? { base: '0', md: 'full' } : '0'}
           boxShadow={
-            isScrolled
+            hasHeaderSurface
               ? {
                   base: '0 10px 28px rgba(0,0,0,0.22)',
                   md: '0 16px 48px rgba(0,0,0,0.38), 0 2px 12px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.035)',
                 }
               : '0 0 0 rgba(0,0,0,0), inset 0 0 0 rgba(255,255,255,0)'
           }
-          backdropFilter={isScrolled ? 'blur(22px) saturate(1.35)' : 'none'}
+          backdropFilter={hasHeaderSurface ? 'blur(22px) saturate(1.35)' : 'none'}
           transform={isScrolled ? 'translateY(0)' : { base: 'translateY(0)', md: 'translateY(-2px)' }}
           transitionProperty="padding, background-color, border-color, border-radius, box-shadow, backdrop-filter, transform"
           transitionDuration="0.32s"
@@ -83,7 +86,12 @@ export const Header = (props: HeaderProps) => {
           </Box>
           
           <Box flex="1" minW={0}>
-            <Navigation centerLinks={true} insetButtons={true} mobileMode={true} />
+            <Navigation
+              centerLinks
+              mobileNavIsOpen={mobileNav.isOpen}
+              onMobileNavToggle={mobileNav.onToggle}
+              onMobileNavClose={mobileNav.onClose}
+            />
           </Box>
         </Flex>
       </Container>

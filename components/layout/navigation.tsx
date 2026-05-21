@@ -1,7 +1,7 @@
-import { HStack, Flex, Box, Grid, GridItem, Icon, Text } from '@chakra-ui/react'
-import { useDisclosure, useUpdateEffect } from '@chakra-ui/react'
+import { HStack, Flex, Box, Icon, Text } from '@chakra-ui/react'
+import { useUpdateEffect } from '@chakra-ui/react'
 import { useScrollSpy } from 'hooks/use-scrollspy'
-import { usePathname, useRouter } from 'next/navigation'
+import { usePathname } from 'next/navigation'
 import * as React from 'react'
 import { FiArrowRight } from 'react-icons/fi'
 import { MobileNavButton } from '#components/mobile-nav'
@@ -12,17 +12,17 @@ import ThemeToggle from './theme-toggle'
 
 interface NavigationProps {
   centerLinks?: boolean;
-  insetButtons?: boolean;
-  mobileMode?: boolean; // Added new prop
+  mobileNavIsOpen?: boolean
+  onMobileNavToggle?: () => void
+  onMobileNavClose?: () => void
 }
 
 const Navigation: React.FC<NavigationProps> = ({ 
-  centerLinks = false, 
-  insetButtons = false,
-  mobileMode = false 
+  centerLinks = false,
+  mobileNavIsOpen = false,
+  onMobileNavToggle = () => {},
+  onMobileNavClose = () => {},
 }) => {
-  const mobileNav = useDisclosure()
-  const router = useRouter()
   const path = usePathname()
   const activeId = useScrollSpy(
     siteConfig.header.links
@@ -37,7 +37,7 @@ const Navigation: React.FC<NavigationProps> = ({
   
   useUpdateEffect(() => {
     mobileNavBtnRef.current?.focus()
-  }, [mobileNav.isOpen])
+  }, [mobileNavIsOpen])
   
   // Split the navigation - everything except the last item (Download)
   const navLinks = siteConfig.header.links.slice(0, -1)
@@ -46,13 +46,9 @@ const Navigation: React.FC<NavigationProps> = ({
   
   if (centerLinks) {
     return (
-      <Grid templateColumns="1fr auto 1fr" width="100%" gap={4}>
-        {/* Left column - empty to balance with right column */}
-        <GridItem />
-        
-        {/* Center column - navigation links */}
-        <GridItem display="flex" alignItems="center">
-          <Flex justify="center" align="center" h="40px">
+      <Flex width="100%" align="center" justify="space-between" gap={4}>
+        <Box flex="1" minW={0}>
+          <Flex justify="center" align="center" h="40px" minW={0}>
             {navLinks.map(({ href, id, ...props }, i) => {
               return (
                 <NavLink
@@ -83,17 +79,10 @@ const Navigation: React.FC<NavigationProps> = ({
               )
             })}
           </Flex>
-        </GridItem>
-        
-        {/* Right column - Download button, theme toggle, mobile nav */}
-        <GridItem display="flex" alignItems="center" justifyContent="flex-end">
-          {/* Apply right padding conditionally based on screen size and mobileMode */}
-          <HStack 
-            spacing={3} 
-            justify="flex-end" 
-            align="center"
-            pr={insetButtons ? { base: mobileMode ? 0 : 6, lg: 8 } : 0}
-          >
+        </Box>
+
+        <Box flexShrink={0}>
+          <HStack spacing={3} justify="flex-end" align="center">
             <NavLink
               display={['none', null, 'flex']}
               href={downloadButton.href || `/#${downloadButton.id}`}
@@ -150,14 +139,14 @@ const Navigation: React.FC<NavigationProps> = ({
               <MobileNavButton
                 ref={mobileNavBtnRef}
                 aria-label="Open Menu"
-                onClick={mobileNav.onOpen}
+                onClick={onMobileNavToggle}
               />
             </Box>
             
-            <MobileNavContent isOpen={mobileNav.isOpen} onClose={mobileNav.onClose} />
+            <MobileNavContent isOpen={mobileNavIsOpen} onClose={onMobileNavClose} />
           </HStack>
-        </GridItem>
-      </Grid>
+        </Box>
+      </Flex>
     )
   }
   
@@ -194,9 +183,9 @@ const Navigation: React.FC<NavigationProps> = ({
       <MobileNavButton
         ref={mobileNavBtnRef}
         aria-label="Open Menu"
-        onClick={mobileNav.onOpen}
+        onClick={onMobileNavToggle}
       />
-      <MobileNavContent isOpen={mobileNav.isOpen} onClose={mobileNav.onClose} />
+      <MobileNavContent isOpen={mobileNavIsOpen} onClose={onMobileNavClose} />
     </HStack>
   )
 }
