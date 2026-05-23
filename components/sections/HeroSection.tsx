@@ -11,6 +11,7 @@ import {
 } from '@chakra-ui/react'
 import { Br } from '@saas-ui/react'
 import Image from 'next/image'
+import { FaStar } from 'react-icons/fa'
 import {
   FiArrowRight,
   FiAward,
@@ -26,6 +27,25 @@ import { FallInPlace } from '#components/motion/fall-in-place'
 import { Em } from '#components/typography'
 import { ASSETS, INTERNAL_ROUTES } from '#constants'
 import { heroPulseAnimation, sectionContentStyles } from '#theme/styles/section-styles'
+
+const socialProofAvatars = [
+  {
+    src: '/static/social-proof/job-seeker-1.jpg',
+    alt: '66 Days Prep user profile',
+  },
+  {
+    src: '/static/social-proof/job-seeker-2.jpg',
+    alt: '66 Days Prep user profile',
+  },
+  {
+    src: '/static/social-proof/job-seeker-3.jpg',
+    alt: '66 Days Prep user profile',
+  },
+  {
+    src: '/static/social-proof/job-seeker-4.jpg',
+    alt: '66 Days Prep user profile',
+  },
+]
 
 export function HeroSection() {
   const handleDownloadClick = () => {
@@ -171,7 +191,7 @@ export function HeroSection() {
               </HStack>
 
               <VStack
-                spacing={4}
+                spacing={5}
                 alignItems={{ base: 'center', md: 'flex-start' }}
                 position="relative"
                 zIndex={1}
@@ -251,6 +271,85 @@ export function HeroSection() {
                   >
                     Learn More
                   </ButtonLink>
+                </Stack>
+                <Stack
+                  direction={{ base: 'column', sm: 'row' }}
+                  spacing={{ base: 3, sm: 4 }}
+                  alignItems="center"
+                  color="white"
+                  fontSize={{ base: 'sm', md: 'md' }}
+                  lineHeight="1"
+                  py="2"
+                  textAlign={{ base: 'center', md: 'left' }}
+                >
+                  <Stack
+                    direction={{ base: 'column', sm: 'row' }}
+                    spacing={{ base: 2, sm: 3 }}
+                    alignItems="center"
+                  >
+                    <HStack spacing="0">
+                      {socialProofAvatars.map((avatar, index) => (
+                        <Box
+                          key={avatar.src}
+                          position="relative"
+                          ml={index === 0 ? 0 : { base: '-1', md: '-1.5' }}
+                          w={{ base: '29px', md: '33px' }}
+                          h={{ base: '29px', md: '33px' }}
+                          borderRadius="full"
+                          overflow="hidden"
+                          border="2px solid"
+                          borderColor="rgba(14, 14, 16, 0.95)"
+                          boxShadow="0 0 0 1px rgba(255,255,255,0.18)"
+                          zIndex={socialProofAvatars.length - index}
+                        >
+                          <Image
+                            src={avatar.src}
+                            alt={avatar.alt}
+                            fill
+                            sizes="34px"
+                            style={{ objectFit: 'cover' }}
+                          />
+                        </Box>
+                      ))}
+                    </HStack>
+                    <Text
+                      as="span"
+                      fontWeight="medium"
+                      color="whiteAlpha.900"
+                      whiteSpace="nowrap"
+                    >
+                      Trusted by{' '}
+                      <Box as="span" color="white" fontWeight="bold">
+                        40,000+
+                      </Box>{' '}
+                      job seekers
+                    </Text>
+                  </Stack>
+
+                  <Box
+                    display={{ base: 'none', sm: 'block' }}
+                    w="1px"
+                    h="18px"
+                    bg="whiteAlpha.300"
+                  />
+
+                  <HStack spacing="2" color="yellow.400">
+                    <HStack spacing="2">
+                      {Array.from({ length: 5 }).map((_, index) => (
+                        <Icon
+                          key={index}
+                          as={FaStar}
+                          boxSize={{ base: '13px', md: '14px' }}
+                        />
+                      ))}
+                    </HStack>
+                    <Text as="span" color="whiteAlpha.800" fontWeight="medium">
+                      <Box as="span" color="white" fontWeight="bold">
+                        4.9
+                      </Box>{' '}
+                      stars
+                    </Text>
+                  </HStack>
                 </Stack>
               </VStack>
             </FallInPlace>
