@@ -320,7 +320,7 @@ export function HeroSection() {
                     >
                       Trusted by{' '}
                       <Box as="span" color="white" fontWeight="bold">
-                        40,000+
+                        30,000+
                       </Box>{' '}
                       job seekers
                     </Text>
