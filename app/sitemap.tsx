@@ -2,7 +2,7 @@
 import { MetadataRoute } from 'next'
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://the66 Days Prepapp.com'
+  const baseUrl = 'https://www.66daysprep.com'
 
   return [
     {

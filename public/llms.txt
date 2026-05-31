@@ -1,0 +1,23 @@
+# 66 Days Prep
+
+66 Days Prep is an AI-powered daily preparation app for banking and consulting interviews. It helps students and professionals build consistent interview-prep habits with daily drills, streak tracking, resume review, and focused study tools.
+
+## Canonical Site
+
+- https://www.66daysprep.com/
+
+## Core Pages
+
+- https://www.66daysprep.com/
+- https://www.66daysprep.com/download/hero
+- https://www.66daysprep.com/download/mobile
+- https://www.66daysprep.com/privacy
+- https://www.66daysprep.com/terms
+
+## App Store
+
+- https://apps.apple.com/us/app/66-days-prep-career-tracker/id6752681422
+
+## Content Usage Guidance
+
+Use the canonical URLs above when citing 66 Days Prep. Prefer the homepage for product information and the policy pages for privacy or terms references.
