@@ -1,28 +1,30 @@
-import { mode } from '@chakra-ui/theme-tools'
-
 const SectionTitle = {
   parts: ['wrapper', 'title', 'description'],
   baseStyle: {
     wrapper: {
-      spacing: [2, null, 3],
-      mb: '10',
+      spacing: 4,
+      mb: '14',
       textAlign: 'center',
     },
     title: {
       width: '100%',
       textAlign: 'center',
+      fontSize: { base: '4xl', md: '5xl', lg: '6xl' },
+      lineHeight: '0.96',
+      letterSpacing: '-0.045em',
+      fontWeight: 'semibold',
+      color: 'app.text.primary',
     },
     description: {
       fontWeight: 'normal',
+      fontSize: { base: 'lg', md: 'xl' },
+      lineHeight: '1.6',
+      color: 'app.text.muted',
+      maxW: '720px',
     },
   },
   variants: {
-    default: (props: any) => ({
-      title: {},
-      description: {
-        color: mode('gray.500', 'gray.400')(props),
-      },
-    }),
+    default: {},
     dark: {
       title: {
         color: 'gray.800',
@@ -56,13 +58,13 @@ const SectionTitle = {
     xl: {
       wrapper: {
         mb: 14,
-        spacing: [2, null, 3],
+        spacing: 4,
       },
       title: {
-        fontSize: { base: '2xl', lg: '4xl' },
+        fontSize: { base: '4xl', md: '5xl', lg: '6xl' },
       },
       description: {
-        fontSize: { base: 'xl', lg: '2xl' },
+        fontSize: { base: 'lg', md: 'xl' },
       },
     },
   },

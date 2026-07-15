@@ -16,9 +16,9 @@ import {
   FiArrowRight,
   FiAward,
   FiBriefcase,
-  FiCheckCircle,
   FiTarget,
 } from 'react-icons/fi'
+import { PiSealCheckFill } from 'react-icons/pi'
 
 import { ButtonLink } from '#components/button-link/button-link'
 import { Features } from '#components/features'
@@ -77,7 +77,7 @@ export function HeroSection() {
             zIndex={1}
             textAlign="center"
           >
-            <Icon as={FiCheckCircle} boxSize="13px" color="primary.300" />
+            <Icon as={PiSealCheckFill} boxSize="18px" color="cyan.400" />
             <Text as="span" display={{ base: 'none', md: 'inline' }}>
               Join over 30,000+ users to secure your career
             </Text>
@@ -91,21 +91,22 @@ export function HeroSection() {
         <Stack
           direction={{ base: 'column', lg: 'row' }}
           alignItems="center"
-          spacing={{ base: 2, md: 4, lg: 0 }}
+          spacing={{ base: 8, sm: 10, md: 12, lg: 0 }}
         >
           <Hero
             id="home"
             justifyContent="flex-start"
-            px={{ base: '4', md: '12', xl: '16' }}
+            px={{ base: '4', md: '0', lg: '0' }}
+            containerProps={{ px: { base: 4, md: 4, lg: 12 }, maxW: 'none' }}
             py={{ base: 8, md: 10, lg: 20 }}
             order={{ base: 2, lg: 1 }}
-            mt={{ base: 0, lg: 0 }}
-            width={{ base: '100%', lg: '62%' }}
+            mt={{ base: 0, md: 4, lg: 0 }}
+            width={{ base: '100%', lg: '60%' }}
             title={
               <FallInPlace>
                 <Box
-                  fontSize={{ base: '50px', sm: '49px', md: '56px', lg: '66px' }}
-                  fontWeight="bold"
+                  fontSize={{ base: '58px', sm: '52px', md: '64px', lg: '72px' }}
+                  fontWeight="semibold"
                   lineHeight="1.1"
                   position="relative"
                   zIndex={1}
@@ -130,9 +131,8 @@ export function HeroSection() {
                       w={4}
                       h={4}
                       borderRadius="full"
-                      bg="primary.400"
+                      bg="green.400"
                       zIndex={0}
-                      animation="heroPulseRing 1.9s ease-in-out infinite"
                       sx={heroPulseAnimation}
                     />
                   </Box>
@@ -279,7 +279,7 @@ export function HeroSection() {
                   color="white"
                   fontSize={{ base: 'sm', md: 'md' }}
                   lineHeight="1"
-                  py="2"
+                  py="4"
                   textAlign={{ base: 'center', md: 'left' }}
                 >
                   <Stack
@@ -333,8 +333,8 @@ export function HeroSection() {
                     bg="whiteAlpha.300"
                   />
 
-                  <HStack spacing="2" color="yellow.400">
-                    <HStack spacing="2">
+                  <HStack spacing="2" color="#FFE500">
+                    <HStack spacing="1.5">
                       {Array.from({ length: 5 }).map((_, index) => (
                         <Icon
                           key={index}
@@ -347,7 +347,7 @@ export function HeroSection() {
                       <Box as="span" color="white" fontWeight="bold">
                         4.9
                       </Box>{' '}
-                      stars
+                      / 5.0
                     </Text>
                   </HStack>
                 </Stack>
@@ -356,7 +356,7 @@ export function HeroSection() {
           </Hero>
 
           <Box
-            width={{ base: '100%', lg: '38%' }}
+            width={{ base: '100%', lg: '40%' }}
             height={{ base: 'clamp(400px, 114vw, 600px)', md: '600px' }}
             position="relative"
             display="block"
@@ -383,7 +383,7 @@ export function HeroSection() {
                   justifyContent="center"
                   transform={{
                     base: 'none',
-                    lg: 'translateX(-20px)',
+                    lg: 'translateX(0)',
                   }}
                 >
                   <Image

@@ -56,22 +56,7 @@ export const Pricing: React.FC<PricingProps> = (props) => {
               title={plan.title}
               description={plan.description}
               price={plan.price}
-              sx={
-                plan.isRecommended
-                  ? {
-                      bgGradient:
-                        'linear(to-br, rgba(245, 238, 221, 0.105), rgba(196, 176, 136, 0.055))',
-                      borderColor: 'primary.400',
-                      boxShadow:
-                        '0 10px 36px rgba(196, 176, 136, 0.16), 0 6px 30px rgba(0, 0, 0, 0.22)',
-                      _dark: {
-                        bgGradient:
-                          'linear(to-br, rgba(245, 238, 221, 0.105), rgba(196, 176, 136, 0.055))',
-                        borderColor: 'primary.400',
-                      },
-                    }
-                  : {}
-              }
+              isRecommended={plan.isRecommended}
             >
               <ButtonLink
                 colorScheme={isFree ? 'whiteAlpha' : 'primary'}
@@ -200,45 +185,85 @@ export interface PricingBoxProps extends Omit<StackProps, 'title'> {
   title: React.ReactNode
   description: React.ReactNode
   price: React.ReactNode
+  isRecommended?: boolean
 }
 
 const PricingBox: React.FC<PricingBoxProps> = (props) => {
-  const { title, description, price, children, ...rest } = props
+  const {
+    title,
+    description,
+    price,
+    children,
+    isRecommended = false,
+    ...rest
+  } = props
   return (
     <VStack
-      bgGradient="linear(to-br, rgba(245, 238, 221, 0.075), rgba(196, 176, 136, 0.035))"
-      backdropFilter="blur(10px)"
-      borderRadius="24px"
-      p="8"
+      position="relative"
+      overflow="hidden"
+      bg={
+        isRecommended
+          ? 'linear-gradient(145deg, rgba(245, 238, 221, 0.105) 0%, rgba(196, 176, 136, 0.055) 54%, rgba(245, 238, 221, 0.05) 100%)'
+          : 'linear-gradient(145deg, rgba(245, 238, 221, 0.075) 0%, rgba(196, 176, 136, 0.028) 62%, rgba(245, 238, 221, 0.045) 100%)'
+      }
+      backdropFilter="blur(18px) saturate(125%)"
+      borderRadius="28px"
+      px="6"
+      pt="6"
+      pb="5"
       flex="1 0"
       alignItems="stretch"
-      borderWidth="1px"
-      borderColor="rgba(196, 176, 136, 0.16)"
-      boxShadow="0 4px 20px rgba(0, 0, 0, 0.14)"
+      border="1px solid"
+      borderColor={isRecommended ? 'primary.400' : 'app.border.subtle'}
+      boxShadow={
+        isRecommended
+          ? 'inset 0 1px 0 rgba(245, 238, 221, 0.11), 0 18px 48px rgba(0, 0, 0, 0.2), 0 0 42px rgba(196, 176, 136, 0.08)'
+          : 'inset 0 1px 0 rgba(245, 238, 221, 0.075), 0 14px 38px rgba(0, 0, 0, 0.14)'
+      }
+      _before={{
+        content: '""',
+        position: 'absolute',
+        top: '-100px',
+        right: '-90px',
+        w: '220px',
+        h: '220px',
+        borderRadius: 'full',
+        bg: isRecommended
+          ? 'rgba(196, 176, 136, 0.12)'
+          : 'rgba(196, 176, 136, 0.055)',
+        filter: 'blur(42px)',
+        pointerEvents: 'none',
+      }}
       _hover={{
-        bgGradient:
-          'linear(to-br, rgba(245, 238, 221, 0.105), rgba(196, 176, 136, 0.052))',
-        transform: 'translateY(-2px)',
-        boxShadow: '0 6px 24px rgba(0, 0, 0, 0.18)',
+        borderColor: isRecommended ? 'primary.300' : 'app.border.strong',
+        transform: 'translateY(-3px)',
+        boxShadow: isRecommended
+          ? 'inset 0 1px 0 rgba(245, 238, 221, 0.14), 0 22px 54px rgba(0, 0, 0, 0.24), 0 0 48px rgba(196, 176, 136, 0.1)'
+          : 'inset 0 1px 0 rgba(245, 238, 221, 0.1), 0 18px 44px rgba(0, 0, 0, 0.18)',
       }}
-      transition="all 0.3s ease"
-      _dark={{
-        bgGradient:
-          'linear(to-br, rgba(245, 238, 221, 0.075), rgba(196, 176, 136, 0.035))',
-        borderColor: 'rgba(196, 176, 136, 0.16)',
-      }}
+      transition="transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease"
       {...rest}
     >
-      <Heading as="h3" size="md" fontWeight="bold" fontSize="xl" mb="2" letterSpacing="0">
+      <Heading
+        as="h3"
+        size="md"
+        fontWeight="semibold"
+        fontSize="xl"
+        mb="2"
+        letterSpacing="-0.02em"
+        color="app.text.primary"
+        position="relative"
+        zIndex={1}
+      >
         {title}
       </Heading>
-      <Box color="muted">
+      <Box color="app.text.muted" position="relative" zIndex={1}>
         {description}
       </Box>
-      <Box fontSize="2xl" fontWeight="bold" pt="4" pb="2">
+      <Box fontSize="2xl" fontWeight="bold" pt="4" pb="2" position="relative" zIndex={1}>
         {price}
       </Box>
-      <VStack align="stretch" justifyContent="stretch" spacing="4" flex="1">
+      <VStack align="stretch" justifyContent="stretch" spacing="4" flex="1" position="relative" zIndex={1}>
         {children}
       </VStack>
     </VStack>

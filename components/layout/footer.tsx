@@ -3,14 +3,15 @@ import {
   BoxProps,
   Container,
   Flex,
+  HStack,
   Image,
   SimpleGrid,
   Stack,
   Text,
-  Wrap,
-  WrapItem,
+  VStack,
 } from '@chakra-ui/react'
 import { Link, LinkProps } from '@saas-ui/react'
+
 import { APP_STORE_LINKS, ASSETS } from '#constants'
 import siteConfig from '#data/config'
 
@@ -19,60 +20,94 @@ export interface FooterProps extends BoxProps {
 }
 
 export const Footer: React.FC<FooterProps> = (props) => {
-  const { columns = 2, ...rest } = props
-  
+  const { ...rest } = props
+  const utilityLinks = siteConfig.footer.links.slice(0, 3)
+  const socialLinks = siteConfig.footer.links.slice(3)
+
   return (
     <Box
-      bg="rgba(14, 14, 16, 0.96)"
+      as="footer"
+      bg="rgba(10, 9, 8, 0.97)"
       borderTop="1px solid"
-      borderColor="rgba(196, 176, 136, 0.18)"
+      borderColor="app.border.subtle"
       position="relative"
       zIndex={1}
       width="100%"
       {...rest}
     >
-      <Container maxW="container.2xl" px="8" py="8" width="100%">
-        {/* Change columns to be responsive - 1 on mobile, 2 on larger screens */}
-        <SimpleGrid columns={{ base: 1, md: columns }} spacing={{ base: 8, md: 0 }}>
-          <Stack spacing="8">
-            <Stack alignItems="flex-start">
-              <Flex>
-                <Box as={siteConfig.logo} flex="1" height="32px" />
-              </Flex>
-              <Text fontSize="md" color="muted">
+      <Container maxW="container.2xl" px={{ base: 6, md: 8 }} py={{ base: 10, md: 12 }}>
+        <Stack spacing={{ base: 10, md: 12 }}>
+          <SimpleGrid
+            columns={{ base: 1, lg: 2 }}
+            spacing={{ base: 10, lg: 20 }}
+            alignItems="start"
+          >
+            <VStack align="flex-start" spacing="6" maxW="500px">
+              <Box as={siteConfig.logo} height="32px" />
+              <Text color="app.text.muted" fontSize="md" lineHeight="1.7">
                 {siteConfig.seo.description}
               </Text>
-            </Stack>
-            <Stack spacing="4" alignItems="flex-start">
               <Link
                 href={APP_STORE_LINKS.ios}
                 isExternal
-                _hover={{ opacity: 0.8 }}
-                transition="opacity 0.2s"
+                _hover={{ opacity: 0.82 }}
+                transition="opacity 0.2s ease"
               >
                 <Image
                   src={ASSETS.images.appStoreBadge}
-                  alt="Download on the App Store"
-                  height="40px"
+                  alt="Download 66 Days Prep on the App Store"
+                  height="42px"
                 />
               </Link>
-              <Copyright>{siteConfig.footer.copyright}</Copyright>
-            </Stack>
-          </Stack>
-          
-          {/* Use Wrap for better mobile layout of links */}
-          <Stack spacing="4" alignSelf={{ base: "flex-start", md: "flex-end" }}>
-            <Wrap justify={{ base: "flex-start", md: "flex-end" }} spacing="4">
-              {siteConfig.footer?.links?.map(({ href, label }) => (
-                <WrapItem key={href}>
-                  <FooterLink href={href}>
+            </VStack>
+
+            <Stack
+              align={{ base: 'flex-start', lg: 'flex-end' }}
+              spacing="6"
+              pt={{ base: 0, lg: 1 }}
+            >
+              <Text
+                color="app.text.primary"
+                fontSize="sm"
+                fontWeight="700"
+                letterSpacing="0.04em"
+                textTransform="uppercase"
+              >
+                Company
+              </Text>
+              <Flex
+                gap={{ base: 4, md: 6 }}
+                flexWrap="wrap"
+                justify={{ base: 'flex-start', lg: 'flex-end' }}
+              >
+                {utilityLinks.map(({ href, label }) => (
+                  <FooterLink key={href} href={href}>
                     {label}
                   </FooterLink>
-                </WrapItem>
+                ))}
+              </Flex>
+            </Stack>
+          </SimpleGrid>
+
+          <Flex
+            pt="6"
+            borderTop="1px solid"
+            borderColor="app.border.subtle"
+            direction={{ base: 'column', md: 'row' }}
+            justify="space-between"
+            align={{ base: 'flex-start', md: 'center' }}
+            gap="5"
+          >
+            <Copyright>{siteConfig.footer.copyright}</Copyright>
+            <HStack spacing="4">
+              {socialLinks.map(({ href, label }) => (
+                <FooterLink key={href} href={href} isExternal>
+                  {label}
+                </FooterLink>
               ))}
-            </Wrap>
-          </Stack>
-        </SimpleGrid>
+            </HStack>
+          </Flex>
+        </Stack>
       </Container>
     </Box>
   )
@@ -83,17 +118,12 @@ export interface CopyrightProps {
   children: React.ReactNode
 }
 
-export const Copyright: React.FC<CopyrightProps> = ({
-  title,
-  children,
-}: CopyrightProps) => {
-  let content
-  if (title && !children) {
-    content = `&copy; ${new Date().getFullYear()} - ${title}`
-  }
+export const Copyright: React.FC<CopyrightProps> = ({ title, children }) => {
+  const content = title && !children ? `&copy; ${new Date().getFullYear()} - ${title}` : children
+
   return (
-    <Text color="muted" fontSize="sm">
-      {content || children}
+    <Text color="app.text.faint" fontSize="sm">
+      {content}
     </Text>
   )
 }
@@ -102,13 +132,11 @@ export const FooterLink: React.FC<LinkProps> = (props) => {
   const { children, ...rest } = props
   return (
     <Link
-      color="muted"
+      color="app.text.muted"
       fontSize="sm"
       textDecoration="none"
-      _hover={{
-        color: 'white',
-        transition: 'color .2s ease-in',
-      }}
+      _hover={{ color: 'app.text.primary' }}
+      transition="color 0.2s ease"
       {...rest}
     >
       {children}

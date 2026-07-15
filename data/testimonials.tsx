@@ -1,5 +1,7 @@
 export default {
   title: 'Why Users Love 66 Days Prep',
+  description:
+    'Candidates use 66 Days Prep to build consistency, strengthen weak spots, and show up ready for high-stakes interviews.',
   items: [
     {
       name: 'Anonymous',

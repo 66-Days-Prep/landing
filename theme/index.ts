@@ -37,6 +37,26 @@ const colors = {
     800: '#2A2119',
     900: '#18130F',
   },
+  app: {
+    bg: '#0E0E10',
+    surface: {
+      header: 'rgba(24, 19, 15, 0.88)',
+      panel: '#15130F',
+      card: 'rgba(245, 238, 221, 0.055)',
+      cardHover: 'rgba(245, 238, 221, 0.085)',
+      subtle: 'rgba(245, 238, 221, 0.03)',
+    },
+    text: {
+      primary: '#FFFFFF',
+      secondary: 'rgba(245, 238, 221, 0.86)',
+      muted: 'rgba(245, 238, 221, 0.68)',
+      faint: 'rgba(245, 238, 221, 0.48)',
+    },
+    border: {
+      subtle: 'rgba(196, 176, 136, 0.14)',
+      strong: 'rgba(196, 176, 136, 0.24)',
+    },
+  },
 }
 
 const customComponents = {

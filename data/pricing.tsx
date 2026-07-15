@@ -21,7 +21,7 @@ export default {
           >
             $15.99 / month
           </Text>
-          <Text fontSize="5xl" fontWeight="bold">
+          <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95">
             Free
           </Text>
         </VStack>
@@ -57,7 +57,7 @@ export default {
             $39.99 / month
           </Text>
           <HStack spacing="2" align="baseline">
-            <Text fontSize="5xl" fontWeight="bold" color="green.500">
+            <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95" color="green.500">
               $15.99
             </Text>
             <Text fontSize="md" color="muted" fontWeight="normal">
@@ -115,7 +115,7 @@ export default {
             $149.99 / year
           </Text>
           <HStack spacing="2" align="baseline">
-            <Text fontSize="5xl" fontWeight="bold" color="green.500">
+            <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95" color="green.500">
               $59.99
             </Text>
             <Text fontSize="md" color="muted" fontWeight="normal">

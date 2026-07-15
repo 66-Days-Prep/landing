@@ -1,102 +1,117 @@
 'use client'
 
-import { Box, Heading, Text } from '@chakra-ui/react'
-import { Br } from '@saas-ui/react'
-import { FiBook, FiTarget, FiTrendingUp } from 'react-icons/fi'
+import { Box, Heading, SimpleGrid, Text } from '@chakra-ui/react'
 
-import { Features } from '#components/features'
+import { Section } from '#components/section'
 import { sectionContentStyles } from '#theme/styles/section-styles'
 
-const STEP_FEATURES = [
+const STEPS = [
   {
-    title: (
-      <Text fontSize={['xl', '2xl', '3xl']} fontWeight="bold" mb={3}>
-        Learn
-      </Text>
-    ),
-    icon: FiBook,
-    description: (
-      <>
-        <Br />
-        Master fundamental concepts, frameworks, and technical skills through
-        expert-curated content and video lessons.
-      </>
-    ),
-    variant: 'inline' as const,
+    number: '01',
+    title: 'Learn',
+    description:
+      'Master the concepts, frameworks, and technical skills that banking and consulting interviews actually test through expert-curated lessons and focused resources.',
   },
   {
-    title: (
-      <Text fontSize={['xl', '2xl', '3xl']} fontWeight="bold" mb={3}>
-        Practice
-      </Text>
-    ),
-    icon: FiTarget,
-    description: (
-      <>
-        <Br />
-        Apply your knowledge with real case studies, mock interviews, and
-        personalized feedback from industry professionals.
-      </>
-    ),
-    variant: 'inline' as const,
+    number: '02',
+    title: 'Practice',
+    description:
+      'Apply what you know with daily drills, realistic cases, technical questions, and personalized AI feedback that adapts as your skills improve.',
   },
   {
-    title: (
-      <Text fontSize={['xl', '2xl', '3xl']} fontWeight="bold" mb={3}>
-        Succeed
-      </Text>
-    ),
-    icon: FiTrendingUp,
-    description: (
-      <>
-        <Br />
-        Land your dream job with confidence. Track your progress and get ready
-        for interviews at top-tier firms.
-      </>
-    ),
-    variant: 'inline' as const,
+    number: '03',
+    title: 'Succeed',
+    description:
+      'Track your consistency, close weak spots, and walk into interviews with the speed, structure, and confidence expected at top-tier firms.',
   },
-]
+] as const
 
 export function FeaturesSection() {
   return (
     <Box sx={sectionContentStyles}>
-      <Features
-        id="features"
-        title={
-          <Heading
-            lineHeight="short"
-            textAlign="center"
-            as="p"
-            sx={{
-              fontSize: { base: '2xl', md: '3xl', lg: '4xl' },
-            }}
-          >
-            Your 66-Day Journey
-            <Br />
-          </Heading>
-        }
-        description={
-          <Box textAlign="center">
-            Build elite career habits in 66 days
-            <Br />
+      <Section id="features" innerWidth="container.xl">
+        <Box position="relative" zIndex={1}>
+          <Box maxW={{ base: '100%', lg: '860px' }} mb={{ base: 12, md: 16 }}>
+            <Text
+              mb="4"
+              fontSize="sm"
+              fontWeight="800"
+              color="primary.300"
+              letterSpacing="0.08em"
+              textTransform="uppercase"
+            >
+              The 66-day method
+            </Text>
+            <Heading
+              as="h2"
+              fontSize={{ base: '5xl', md: '7xl', lg: '8xl' }}
+              lineHeight="0.92"
+              letterSpacing="-0.06em"
+              fontWeight="semibold"
+              color="app.text.primary"
+            >
+              Build the habits that win interviews.
+            </Heading>
+            <Text
+              mt="6"
+              maxW="680px"
+              fontSize={{ base: 'lg', md: 'xl' }}
+              color="app.text.muted"
+              lineHeight="1.6"
+            >
+              Turn preparation into a repeatable daily system that moves from
+              knowledge, to application, to confident interview performance.
+            </Text>
           </Box>
-        }
-        align="center"
-        columns={[1, 2, 3]}
-        iconSize={4}
-        spacing={4}
-        sx={{
-          '.chakra-simple-grid': {
-            rowGap: '1rem',
-          },
-          '.feature-item, .saas-feature, & > div, & svg, & .chakra-icon, & [role="img"]': {
-            position: 'relative',
-            zIndex: 1,
-          },
-        }}
-        features={STEP_FEATURES}
-      />
+
+          <SimpleGrid
+            columns={{ base: 1, lg: 3 }}
+            borderTop="1px solid"
+            borderBottom="1px solid"
+            borderColor="app.border.subtle"
+          >
+            {STEPS.map((step, index) => (
+              <Box
+                key={step.number}
+                py={{ base: 8, md: 10 }}
+                px={{ base: 0, lg: index === 0 ? 0 : 10 }}
+                pr={{ lg: index === 0 ? 10 : undefined }}
+                borderTop={{ base: index === 0 ? '0' : '1px solid', lg: '0' }}
+                borderLeft={{ base: '0', lg: index === 0 ? '0' : '1px solid' }}
+                borderColor="app.border.subtle"
+              >
+                <Text
+                  mb="8"
+                  fontSize="sm"
+                  fontWeight="700"
+                  color="app.text.faint"
+                  letterSpacing="0.02em"
+                >
+                  {step.number}
+                </Text>
+                <Heading
+                  as="h3"
+                  mb="5"
+                  fontSize={{ base: '3xl', md: '4xl' }}
+                  lineHeight="1"
+                  letterSpacing="-0.045em"
+                  fontWeight="semibold"
+                  color="app.text.primary"
+                >
+                  {step.title}
+                </Heading>
+                <Text
+                  color="app.text.muted"
+                  fontSize={{ base: 'md', md: 'lg' }}
+                  lineHeight="1.7"
+                >
+                  {step.description}
+                </Text>
+              </Box>
+            ))}
+          </SimpleGrid>
+        </Box>
+      </Section>
     </Box>
   )
 }

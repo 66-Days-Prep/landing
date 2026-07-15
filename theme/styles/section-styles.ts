@@ -8,18 +8,19 @@ export const sectionContentStyles: SystemStyleObject = {
 }
 
 export const glassmorphicCardStyles: SystemStyleObject = {
-  bg: 'rgba(245, 238, 221, 0.055)',
-  backdropFilter: 'blur(12px)',
+  bg: 'app.surface.card',
+  backdropFilter: 'blur(18px) saturate(125%)',
   borderRadius: '24px',
   borderWidth: '1px',
-  borderColor: 'rgba(196, 176, 136, 0.14)',
-  boxShadow: '0 4px 22px rgba(0, 0, 0, 0.2)',
+  borderColor: 'app.border.subtle',
+  boxShadow: 'inset 0 1px 0 rgba(245, 238, 221, 0.075), 0 14px 38px rgba(0, 0, 0, 0.16)',
   _hover: {
-    bg: 'rgba(245, 238, 221, 0.08)',
-    transform: 'translateY(-2px)',
-    boxShadow: '0 8px 28px rgba(0, 0, 0, 0.24)',
+    bg: 'app.surface.cardHover',
+    borderColor: 'app.border.strong',
+    transform: 'translateY(-3px)',
+    boxShadow: 'inset 0 1px 0 rgba(245, 238, 221, 0.1), 0 18px 44px rgba(0, 0, 0, 0.2)',
   },
-  transition: 'all 0.3s ease',
+  transition: 'transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease',
 }
 
 export const pulseAnimation = {
@@ -62,7 +63,7 @@ export const heroPulseAnimation: SystemStyleObject = {
     position: 'absolute',
     inset: 0,
     borderRadius: 'full',
-    bg: 'primary.500',
+    bg: 'green.500',
     opacity: 0.22,
     transformOrigin: 'center',
     animation: 'heroPulseRing 1.9s ease-in-out infinite',
