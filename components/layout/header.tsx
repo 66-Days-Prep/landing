@@ -51,7 +51,8 @@ export function Header(props: HeaderProps) {
             justify="space-between"
             position="relative"
             py={scrolled ? 2.5 : 3}
-            px={scrolled ? { base: 3, md: 5 } : { base: 1, md: 0 }}
+            pl={scrolled ? { base: 3, md: 5 } : { base: 1, md: 0 }}
+            pr={scrolled ? { base: 3, lg: 2.5 } : { base: 1, md: 0 }}
             border="1px solid"
             borderColor={
               scrolled || menu.isOpen ? 'app.border.strong' : 'transparent'

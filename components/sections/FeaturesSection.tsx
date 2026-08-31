@@ -15,8 +15,6 @@ import {
   FiBookOpen,
   FiCheck,
   FiCheckCircle,
-  FiPause,
-  FiPlay,
   FiTarget,
   FiTrendingUp,
 } from 'react-icons/fi'
@@ -361,22 +359,6 @@ export function FeaturesSection() {
               </Box>
             ))}
           </SimpleGrid>
-          <Flex justify="center" align="center" flexWrap="wrap" gap="3" mt="5">
-            <Text fontSize="xs" color="#626269">
-              Illustrative prep flow. Actual screens may differ.
-            </Text>
-            {!reducedMotion && (
-              <Button
-                size="xs"
-                variant="ghost"
-                color="#45454B"
-                leftIcon={paused ? <FiPlay /> : <FiPause />}
-                onClick={() => setPaused(!paused)}
-              >
-                {paused ? 'Play preview' : 'Pause preview'}
-              </Button>
-            )}
-          </Flex>
         </Box>
       </Box>
     </Section>

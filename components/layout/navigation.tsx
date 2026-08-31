@@ -1,4 +1,4 @@
-import { Box, HStack, Icon, Link } from '@chakra-ui/react'
+import { Box, Flex, HStack, Icon, Link } from '@chakra-ui/react'
 import NextLink from 'next/link'
 import { FiArrowRight } from 'react-icons/fi'
 
@@ -45,7 +45,7 @@ export default function Navigation({
             </Link>
           ))}
       </HStack>
-      <HStack spacing="2">
+      <Flex align="center" gap="2">
         <ButtonLink
           href={INTERNAL_ROUTES.downloadHero}
           variant="primary"
@@ -76,7 +76,7 @@ export default function Navigation({
           aria-controls="mobile-navigation"
           onClick={onMobileNavToggle}
         />
-      </HStack>
+      </Flex>
       <MobileNavContent
         isOpen={mobileNavIsOpen}
         onClose={onMobileNavClose}

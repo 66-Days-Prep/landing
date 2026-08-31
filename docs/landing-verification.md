@@ -6,7 +6,7 @@ Verified locally on 2026-08-31, using the final `npm run build` output served by
 ## Build and static checks
 
 - `npm run build`: passed, including ESLint, TypeScript validation, all page
-  generation, and build tracing. Latest homepage: 29.1 kB route / 195 kB first-load JS.
+  generation, and build tracing. Latest homepage: 29 kB route / 195 kB first-load JS.
 - Standalone lint and TypeScript checks also passed during implementation.
 - `git diff --check`: passed.
 - The original overhaul made no dependency changes. The later back-to-school
@@ -86,6 +86,27 @@ Verified locally on 2026-08-31, using the final `npm run build` output served by
 - No browser warnings/errors during local interaction checks. Existing App
   Store prices, offer redemption, subscriptions, and backend behavior remain
   unchanged by this website promotion.
+
+### Landing cleanup revision
+
+- Removed all visible pause/play controls from the hero offer, company logos,
+  workflow, and testimonials, plus the workflow disclaimer. Hover/focus,
+  reduced-motion, and off-screen handling remain automatic.
+- Testimonial rows now sit outside the constrained heading container and fill
+  the page width. Each row measures its cards and repeats enough groups to cover
+  the viewport throughout a loop, including after resizing. Speed is a constant
+  50 px/second (previously approximately 19–20 px/second on desktop).
+- Header actions now use CSS gap rather than stack sibling margins. The scrolled
+  desktop header's right padding matches its vertical padding at 10 px.
+- Production build passed with lint, TypeScript, and all 12 generated pages.
+  HTTP checks confirmed removed text/controls are absent from rendered HTML and
+  all initial JavaScript, both testimonial rows exist, all 14 image assets load,
+  and both download redirects still point to the existing App Store listing.
+  The 60,000+ audience and Back to School / 40%-off offer are preserved.
+- The earlier browser checks above describe the previous revisions. A fresh
+  visual/interaction check of this cleanup is blocked: the connected preview tab
+  remains on an internal connection-error page, and browser security prevents
+  navigation out of that page. The user has been asked to reopen the site.
 
 ### Remaining limitations
 

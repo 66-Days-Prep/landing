@@ -18,14 +18,13 @@ release follows `docs/release-workflow.md`.
 - Compact feature grid adapted to lessons, daily drills, AI mock interviews,
   and target roles.
 - Light three-step workflow panel. The purpose-built conceptual previews show
-  learning, a worked investment banking valuation case, and a 66-cell progress grid. They are
-  explicitly labeled illustrative rather than represented as app screenshots.
-- Two moving review rows using the existing 66 Days Prep testimonials; no
+  learning, a worked investment banking valuation case, and a 66-cell progress grid.
+- Two full-width moving review rows using the existing 66 Days Prep testimonials; no
   Interview Pilot testimonials or new individual star ratings were introduced.
 - Pricing with the reference's blue textured recommended card, accordion FAQ,
   pastel closing CTA, and a multi-column footer using real routes.
 - Mobile download bar, accessible menu with focus trapping/Escape support,
-  pause controls, reduced-motion behavior, and off-screen animation suspension.
+  reduced-motion behavior, and off-screen animation suspension.
 - Single-anchor CTA semantics, unique section IDs, anchor offsets, social preview,
   fixed dark rendering, named social links, working manifest icon paths,
   legal/account page metadata, branded 404, and sitemap entries for actual pages.

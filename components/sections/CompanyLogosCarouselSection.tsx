@@ -1,10 +1,9 @@
 'use client'
 
-import { Box, Container, Flex, IconButton, Image, Text } from '@chakra-ui/react'
+import { Box, Container, Flex, Image, Text } from '@chakra-ui/react'
 import { useInView, useReducedMotion } from 'framer-motion'
-import { FiPause, FiPlay } from 'react-icons/fi'
 
-import { useRef, useState } from 'react'
+import { useRef } from 'react'
 
 const firms = [
   { name: 'Goldman Sachs', file: 'goldman' },
@@ -20,7 +19,6 @@ export function CompanyLogosCarouselSection() {
   const ref = useRef<HTMLDivElement>(null)
   const visible = useInView(ref, { margin: '100px' })
   const reducedMotion = useReducedMotion()
-  const [paused, setPaused] = useState(false)
   return (
     <Container ref={ref} maxW="1200px" py={{ base: 8, md: 10 }}>
       <Text
@@ -46,7 +44,7 @@ export function CompanyLogosCarouselSection() {
             animation: reducedMotion
               ? 'none'
               : 'firm-scroll 48s linear infinite',
-            animationPlayState: visible && !paused ? 'running' : 'paused',
+            animationPlayState: visible ? 'running' : 'paused',
             '&:hover': { animationPlayState: 'paused' },
           }}
         >
@@ -88,17 +86,6 @@ export function CompanyLogosCarouselSection() {
           Prepare for roles at leading firms. No affiliation or endorsement
           implied.
         </Text>
-        {!reducedMotion && (
-          <IconButton
-            variant="ghost"
-            size="xs"
-            borderRadius="full"
-            color="app.text.muted"
-            aria-label={paused ? 'Play company logos' : 'Pause company logos'}
-            icon={paused ? <FiPlay /> : <FiPause />}
-            onClick={() => setPaused(!paused)}
-          />
-        )}
       </Flex>
     </Container>
   )

@@ -1,9 +1,9 @@
 'use client'
 
-import { Box, HStack, Icon, IconButton, Link, Text } from '@chakra-ui/react'
+import { Box, HStack, Icon, Link, Text } from '@chakra-ui/react'
 import { useInView, useReducedMotion } from 'framer-motion'
 import NextLink from 'next/link'
-import { FiArrowRight, FiPause, FiPlay } from 'react-icons/fi'
+import { FiArrowRight } from 'react-icons/fi'
 import { PiSealCheckFill } from 'react-icons/pi'
 
 import { useEffect, useRef, useState } from 'react'
@@ -16,12 +16,11 @@ export function HeroAnnouncement() {
   const inView = useInView(ref, { amount: 0.25 })
   const reducedMotion = useReducedMotion()
   const [offerActive, setOfferActive] = useState(false)
-  const [paused, setPaused] = useState(false)
   const [hovered, setHovered] = useState(false)
   const [focused, setFocused] = useState(false)
   const [documentVisible, setDocumentVisible] = useState(true)
   const showOffer = reducedMotion || offerActive
-  const pausePlayback = paused || hovered || focused
+  const pausePlayback = hovered || focused
 
   useEffect(() => {
     const syncVisibility = () =>
@@ -152,23 +151,6 @@ export function HeroAnnouncement() {
           <Icon as={FiArrowRight} boxSize="13px" flexShrink={0} />
         </HStack>
       </Link>
-      {!reducedMotion && (
-        <IconButton
-          aria-label={
-            paused ? 'Play hero announcement' : 'Pause hero announcement'
-          }
-          aria-controls="hero-announcement"
-          icon={paused ? <FiPlay /> : <FiPause />}
-          onClick={() => setPaused((value) => !value)}
-          variant="ghost"
-          size="xs"
-          boxSize="28px"
-          minW="28px"
-          borderRadius="full"
-          color="app.text.muted"
-          flexShrink={0}
-        />
-      )}
     </HStack>
   )
 }
