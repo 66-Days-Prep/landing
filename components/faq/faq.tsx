@@ -14,7 +14,7 @@ import { HiOutlineMinusSmall, HiOutlinePlusSmall } from 'react-icons/hi2'
 
 interface FaqProps extends Omit<SectionProps, 'title' | 'children'> {
   title: React.ReactNode
-  description: React.ReactNode
+  description?: React.ReactNode
   items: { q: React.ReactNode; a: React.ReactNode }[]
   align?: 'left' | 'center' | { base: 'center'; md: 'left' }
 }
