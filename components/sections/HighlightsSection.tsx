@@ -4,18 +4,17 @@ import {
   Box,
   Grid,
   GridItem,
-  Heading,
   HStack,
+  Heading,
   Icon,
   IconButton,
-  Tag,
   Text,
-  VStack,
   Wrap,
   useClipboard,
 } from '@chakra-ui/react'
 import {
-  FiBriefcase,
+  FiArrowUpRight,
+  FiBookOpen,
   FiCheck,
   FiCopy,
   FiMic,
@@ -24,299 +23,252 @@ import {
 } from 'react-icons/fi'
 
 import { Section } from '#components/section'
-import { Em } from '#components/typography'
-import { sectionContentStyles } from '#theme/styles/section-styles'
 
-const PREP_TAGS = [
-  'Goldman Sachs',
-  'McKinsey & Company',
-  'Boston Consulting Group',
-  'Bain & Company',
-  'J.P. Morgan',
-  'Morgan Stanley',
-  'Bank of America',
-  'Citi',
-  'Barclays',
-  'Evercore',
-  'Lazard',
-  'Blackstone',
-  'KKR',
-  'Deloitte',
-  'Oliver Wyman',
-  'Strategy&',
-  'Kearney',
-  'L.E.K. Consulting',
-  'Accenture Strategy',
-] as const
-
-const cardStyles = {
-  position: 'relative',
+const card = {
+  minW: 0,
+  display: 'flex',
+  flexDirection: 'column',
+  p: { base: 5, md: 7 },
+  bg: '#141416',
+  border: '1px solid #242428',
+  borderRadius: '14px',
   overflow: 'hidden',
-  borderRadius: '26px',
-  border: '1px solid',
-  borderColor: 'app.border.subtle',
-  bg: 'linear-gradient(145deg, rgba(245, 238, 221, 0.075) 0%, rgba(196, 176, 136, 0.028) 62%, rgba(245, 238, 221, 0.045) 100%)',
-  backdropFilter: 'blur(18px) saturate(125%)',
-  boxShadow:
-    'inset 0 1px 0 rgba(245, 238, 221, 0.075), 0 16px 42px rgba(0, 0, 0, 0.16)',
-  transition: 'transform 0.24s ease, border-color 0.24s ease, background 0.24s ease, box-shadow 0.24s ease',
-  _before: {
-    content: '""',
-    position: 'absolute',
-    top: '-90px',
-    right: '-70px',
-    w: '210px',
-    h: '210px',
-    borderRadius: 'full',
-    bg: 'rgba(196, 176, 136, 0.08)',
-    filter: 'blur(42px)',
-    pointerEvents: 'none',
-  },
-  _hover: {
-    transform: 'translateY(-3px)',
-    borderColor: 'app.border.strong',
-    bg: 'linear-gradient(145deg, rgba(245, 238, 221, 0.095) 0%, rgba(196, 176, 136, 0.04) 62%, rgba(245, 238, 221, 0.055) 100%)',
-    boxShadow:
-      'inset 0 1px 0 rgba(245, 238, 221, 0.1), 0 20px 50px rgba(0, 0, 0, 0.2)',
-  },
 } as const
-
-function CardIcon({ icon }: { icon: React.ElementType }) {
-  return (
-    <Icon
-      as={icon}
-      boxSize="20px"
-      color="primary.300"
-      position="relative"
-      zIndex={1}
-    />
-  )
-}
+const title = {
+  fontSize: { base: '24px', md: '28px' },
+  lineHeight: '1.1',
+  letterSpacing: '-0.04em',
+  fontWeight: '500',
+} as const
 
 export function HighlightsSection() {
   const { onCopy, hasCopied } = useClipboard('#66DaysPrep')
-
   return (
-    <Box sx={sectionContentStyles}>
-      <Section id="benefits" innerWidth="container.xl">
-        <Box position="relative" zIndex={1} mb={{ base: 10, md: 14 }}>
-          <Text
-            mb="4"
-            fontSize="sm"
-            fontWeight="800"
-            color="primary.300"
-            letterSpacing="0.08em"
-            textTransform="uppercase"
-          >
-            Built for high-stakes recruiting
-          </Text>
-          <Heading
-            as="h2"
-            maxW="850px"
-            fontSize={{ base: '4xl', md: '6xl', lg: '7xl' }}
-            lineHeight="0.96"
-            letterSpacing="-0.05em"
-            fontWeight="semibold"
-            color="app.text.primary"
-          >
-            Everything you need to stay sharp for 66 days.
+    <Section id="benefits" innerWidth="1200px" pt={{ base: 8, md: 10 }}>
+      <Grid
+        templateColumns={{ base: '1fr', lg: 'repeat(12,minmax(0,1fr))' }}
+        gap="4"
+      >
+        <GridItem colSpan={{ base: 1, lg: 7 }} sx={card}>
+          <HStack justify="space-between" mb="5">
+            <Text
+              color="app.text.muted"
+              fontSize="xs"
+              textTransform="uppercase"
+              letterSpacing="0.08em"
+            >
+              Complete preparation
+            </Text>
+            <Icon as={FiBookOpen} color="primary.400" boxSize="22px" />
+          </HStack>
+          <Heading as="h2" sx={title}>
+            Master the concepts.
+            <br />
+            Then put them to work.
           </Heading>
-          <Text
-            mt="6"
-            maxW="680px"
-            color="app.text.muted"
-            fontSize={{ base: 'lg', md: 'xl' }}
-            lineHeight="1.6"
-          >
-            Structured preparation for banking and consulting candidates who
-            want stronger fundamentals, faster execution, and visible progress.
+          <Wrap gap="2" mt="7" mb="6">
+            {[
+              'Valuation',
+              'Case frameworks',
+              'Financial modeling',
+              'Behavioral questions',
+            ].map((topic) => (
+              <Box
+                key={topic}
+                px="3"
+                py="2"
+                bg="whiteAlpha.50"
+                border="1px solid"
+                borderColor="whiteAlpha.200"
+                borderRadius="7px"
+                fontSize="sm"
+                color="app.text.secondary"
+              >
+                {topic}
+              </Box>
+            ))}
+          </Wrap>
+          <Text fontSize="md" lineHeight="1.7" color="app.text.muted">
+            Build strong fundamentals for investment banking, management
+            consulting, and corporate finance with focused lessons and practical
+            resources.
           </Text>
-        </Box>
-
-        <Grid templateColumns="repeat(12, 1fr)" gap={{ base: 4, md: 5 }}>
-          <GridItem
-            colSpan={{ base: 12, lg: 7 }}
-            minH={{ base: '360px', lg: '420px' }}
-            p={{ base: 6, md: 8 }}
-            sx={cardStyles}
+          <HStack
+            mt="6"
+            pt="4"
+            borderTop="1px solid"
+            borderColor="app.border.subtle"
+            justify="space-between"
           >
-            <VStack align="stretch" h="full" spacing="6">
-              <HStack justify="space-between" align="flex-start">
-                <Text
-                  color="primary.300"
-                  fontSize="sm"
-                  fontWeight="700"
-                  letterSpacing="0.04em"
-                  textTransform="uppercase"
-                >
-                  Complete preparation
-                </Text>
-                <CardIcon icon={FiBriefcase} />
-              </HStack>
-              <Heading
-                as="h3"
-                maxW="580px"
-                fontSize={{ base: '3xl', md: '5xl' }}
-                lineHeight="1"
-                letterSpacing="-0.045em"
-                fontWeight="semibold"
-                color="app.text.primary"
-              >
-                Master banking and consulting interviews.
-              </Heading>
-              <Text
-                maxW="620px"
-                color="app.text.muted"
-                fontSize={{ base: 'md', md: 'lg' }}
-                lineHeight="1.7"
-              >
-                Prepare for <Em>investment banking</Em>,{' '}
-                <Em>management consulting</Em>, and <Em>corporate finance</Em>{' '}
-                roles with case frameworks, financial modeling, behavioral
-                techniques, and targeted practice.
-              </Text>
-
+            <Text fontSize="sm" color="app.text.secondary">
+              Build your habit with{' '}
+              <Box as="span" color="primary.400">
+                #66DaysPrep
+              </Box>
+            </Text>
+            <IconButton
+              size="sm"
+              variant="ghost"
+              aria-label={
+                hasCopied ? 'Hashtag copied' : 'Copy 66 Days Prep hashtag'
+              }
+              icon={hasCopied ? <FiCheck /> : <FiCopy />}
+              onClick={onCopy}
+            />
+            <Box
+              role="status"
+              position="absolute"
+              w="1px"
+              h="1px"
+              overflow="hidden"
+            >
+              {hasCopied ? 'Hashtag copied to clipboard' : ''}
+            </Box>
+          </HStack>
+        </GridItem>
+        <GridItem colSpan={{ base: 1, lg: 5 }} sx={card}>
+          <HStack justify="space-between" mb="5">
+            <Text
+              color="app.text.muted"
+              fontSize="xs"
+              textTransform="uppercase"
+              letterSpacing="0.08em"
+            >
+              Daily drills
+            </Text>
+            <Icon as={FiZap} color="#F37F5B" boxSize="22px" />
+          </HStack>
+          <Heading as="h3" sx={title}>
+            Small sessions.
+            <br />
+            Sharper thinking.
+          </Heading>
+          <Box
+            mt="7"
+            mb="6"
+            p="4"
+            bg="#0E0E10"
+            borderRadius="10px"
+            border="1px solid"
+            borderColor="app.border.subtle"
+          >
+            {[
+              'Mental math & market sizing',
+              'Profitability & case frameworks',
+              'Excel & technical questions',
+            ].map((item, i) => (
               <HStack
-                mt="auto"
-                alignSelf="flex-start"
-                spacing="2"
-                pl="4"
-                pr="1"
-                py="1"
-                borderRadius="full"
+                key={item}
+                spacing="3"
+                py="3"
+                borderTop={i ? '1px solid' : undefined}
+                borderColor="app.border.subtle"
+              >
+                <Icon as={FiCheck} color="primary.400" />
+                <Text fontSize="sm" color="app.text.secondary">
+                  {item}
+                </Text>
+              </HStack>
+            ))}
+          </Box>
+          <Text fontSize="md" lineHeight="1.7" color="app.text.muted">
+            Build speed and accuracy with timed practice. Review model answers,
+            revisit weak spots, and make each session count.
+          </Text>
+        </GridItem>
+        <GridItem
+          colSpan={{ base: 1, lg: 5 }}
+          sx={card}
+          id="ai-practice"
+          scrollMarginTop="112px"
+        >
+          <HStack justify="space-between" mb="5">
+            <Text
+              color="app.text.muted"
+              fontSize="xs"
+              textTransform="uppercase"
+              letterSpacing="0.08em"
+            >
+              AI mock interviews
+            </Text>
+            <Icon as={FiMic} color="#30AAD6" boxSize="22px" />
+          </HStack>
+          <Heading as="h3" sx={title}>
+            Practice out loud.
+            <br />
+            Improve with feedback.
+          </Heading>
+          <Box
+            aria-hidden="true"
+            display="flex"
+            alignItems="center"
+            justifyContent="center"
+            gap="5px"
+            h="76px"
+            my="5"
+          >
+            {[12, 24, 18, 38, 50, 30, 60, 42, 66, 34, 50, 24, 40, 20, 12].map(
+              (height, i) => (
+                <Box
+                  key={i}
+                  w="5px"
+                  h={`${height}px`}
+                  borderRadius="full"
+                  bg={i > 4 && i < 10 ? '#30AAD6' : 'whiteAlpha.300'}
+                />
+              ),
+            )}
+          </Box>
+          <Text fontSize="md" lineHeight="1.7" color="app.text.muted">
+            Answer realistic questions by voice and respond to follow-ups.
+            Review your scores, delivery, strengths, and a stronger sample
+            answer after each session.
+          </Text>
+        </GridItem>
+        <GridItem colSpan={{ base: 1, lg: 7 }} sx={card}>
+          <HStack justify="space-between" mb="5">
+            <Text
+              color="app.text.muted"
+              fontSize="xs"
+              textTransform="uppercase"
+              letterSpacing="0.08em"
+            >
+              Firm-specific focus
+            </Text>
+            <Icon as={FiTarget} color="#43CFA1" boxSize="22px" />
+          </HStack>
+          <Heading as="h3" sx={title}>
+            Your target role.
+            <br />
+            Your preparation path.
+          </Heading>
+          <Text mt="5" fontSize="md" lineHeight="1.7" color="app.text.muted">
+            Focus your effort on the skills your next interview will test, from
+            bulge-bracket banking to MBB consulting and private equity.
+          </Text>
+          <Grid templateColumns={{ base: '1fr', sm: '1fr 1fr' }} gap="2" mt="6">
+            {[
+              'Investment banking',
+              'Management consulting',
+              'Corporate finance',
+              'Private equity',
+            ].map((role) => (
+              <HStack
+                key={role}
+                justify="space-between"
+                borderRadius="8px"
                 border="1px solid"
                 borderColor="app.border.subtle"
-                bg="app.surface.subtle"
+                bg="whiteAlpha.50"
+                p="3"
               >
-                <Text color="app.text.secondary" fontSize="sm">
-                  Build in public with <Text as="span" color="primary.300">#66DaysPrep</Text>
-                </Text>
-                <IconButton
-                  icon={hasCopied ? <FiCheck /> : <FiCopy />}
-                  aria-label="Copy 66 Days Prep hashtag"
-                  onClick={onCopy}
-                  variant="ghost"
-                  size="sm"
-                  isRound
-                  color="app.text.primary"
-                />
+                <Text fontSize="sm">{role}</Text>
+                <Icon as={FiArrowUpRight} color="app.text.faint" />
               </HStack>
-            </VStack>
-          </GridItem>
-
-          <GridItem
-            colSpan={{ base: 12, lg: 5 }}
-            minH={{ base: '280px', lg: '420px' }}
-            p={{ base: 6, md: 8 }}
-            sx={cardStyles}
-          >
-            <VStack align="stretch" h="full" spacing="5">
-              <HStack justify="space-between">
-                <Text color="primary.300" fontSize="sm" fontWeight="700" textTransform="uppercase">
-                  Daily practice
-                </Text>
-                <CardIcon icon={FiZap} />
-              </HStack>
-              <Heading
-                as="h3"
-                fontSize={{ base: '3xl', md: '4xl' }}
-                lineHeight="1"
-                letterSpacing="-0.04em"
-                fontWeight="semibold"
-                color="app.text.primary"
-              >
-                Drills that build speed and accuracy.
-              </Heading>
-              <Text color="app.text.muted" fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.7">
-                Timed market sizing, profitability, framework, and mental-math
-                drills adapt to your level and reinforce analytical thinking.
-              </Text>
-              <Box mt="auto" pt="5" borderTop="1px solid" borderColor="app.border.subtle">
-                <Text color="app.text.faint" fontSize="sm">Practice daily. Review model answers. Track improvement.</Text>
-              </Box>
-            </VStack>
-          </GridItem>
-
-          <GridItem
-            colSpan={{ base: 12, lg: 5 }}
-            minH={{ base: '280px', lg: '340px' }}
-            p={{ base: 6, md: 8 }}
-            sx={cardStyles}
-          >
-            <VStack align="stretch" h="full" spacing="5">
-              <HStack justify="space-between">
-                <Text color="primary.300" fontSize="sm" fontWeight="700" textTransform="uppercase">
-                  AI mock interviews
-                </Text>
-                <CardIcon icon={FiMic} />
-              </HStack>
-              <Heading
-                as="h3"
-                fontSize={{ base: '3xl', md: '4xl' }}
-                lineHeight="1"
-                letterSpacing="-0.04em"
-                fontWeight="semibold"
-                color="app.text.primary"
-              >
-                Practice with a live AI interviewer.
-              </Heading>
-              <Text color="app.text.muted" fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.7">
-                Answer realistic banking and consulting questions by voice,
-                respond to intelligent follow-ups, and receive a detailed
-                evaluation of both what you said and how you delivered it.
-                Review your scores, strengths, improvements, delivery metrics,
-                and a stronger sample answer after every session.
-              </Text>
-            </VStack>
-          </GridItem>
-
-          <GridItem
-            colSpan={{ base: 12, lg: 7 }}
-            minH={{ base: '320px', lg: '340px' }}
-            p={{ base: 6, md: 8 }}
-            sx={cardStyles}
-          >
-            <VStack align="stretch" h="full" spacing="5">
-              <HStack justify="space-between">
-                <Text color="primary.300" fontSize="sm" fontWeight="700" textTransform="uppercase">
-                  Firm-specific focus
-                </Text>
-                <CardIcon icon={FiTarget} />
-              </HStack>
-              <Heading
-                as="h3"
-                fontSize={{ base: '3xl', md: '4xl' }}
-                lineHeight="1"
-                letterSpacing="-0.04em"
-                fontWeight="semibold"
-                color="app.text.primary"
-              >
-                Target the firms that matter to you.
-              </Heading>
-              <Text color="app.text.muted" fontSize={{ base: 'md', md: 'lg' }} lineHeight="1.65">
-                Build focused preparation tracks for bulge-bracket banks, MBB,
-                private equity, and other competitive career paths.
-              </Text>
-              <Wrap mt="auto" spacing="2.5">
-                {PREP_TAGS.map((tag) => (
-                  <Tag
-                    key={tag}
-                    borderRadius="full"
-                    px="3.5"
-                    py="1.5"
-                    bg="rgba(196, 176, 136, 0.11)"
-                    color="app.text.secondary"
-                    border="1px solid"
-                    borderColor="app.border.subtle"
-                  >
-                    {tag}
-                  </Tag>
-                ))}
-              </Wrap>
-            </VStack>
-          </GridItem>
-        </Grid>
-      </Section>
-    </Box>
+            ))}
+          </Grid>
+        </GridItem>
+      </Grid>
+    </Section>
   )
 }

@@ -2,43 +2,41 @@ const SectionTitle = {
   parts: ['wrapper', 'title', 'description'],
   baseStyle: {
     wrapper: {
-      spacing: 4,
-      mb: '14',
-      textAlign: 'center',
+      spacing: [2, null, 3],
+      mb: '10',
+      textAlign: ['left', null, 'center'],
+      position: 'relative',
+      zIndex: 1,
     },
     title: {
       width: '100%',
-      textAlign: 'center',
-      fontSize: { base: '4xl', md: '5xl', lg: '6xl' },
-      lineHeight: '0.96',
-      letterSpacing: '-0.045em',
-      fontWeight: 'semibold',
-      color: 'app.text.primary',
     },
     description: {
       fontWeight: 'normal',
-      fontSize: { base: 'lg', md: 'xl' },
-      lineHeight: '1.6',
-      color: 'app.text.muted',
-      maxW: '720px',
+      width: '100%',
     },
   },
   variants: {
-    default: {},
+    default: () => ({
+      title: {},
+      description: {
+        color: 'app.text.muted',
+      },
+    }),
     dark: {
       title: {
-        color: 'gray.800',
+        color: 'app.text.primary',
       },
       description: {
-        color: 'gray.700',
+        color: 'app.text.muted',
       },
     },
-    light: (props: any) => ({
+    light: () => ({
       title: {
-        color: 'white',
+        color: 'app.text.primary',
       },
       description: {
-        color: 'gray.200',
+        color: 'app.text.muted',
       },
     }),
   },
@@ -58,13 +56,13 @@ const SectionTitle = {
     xl: {
       wrapper: {
         mb: 14,
-        spacing: 4,
+        spacing: [2, null, 3],
       },
       title: {
-        fontSize: { base: '4xl', md: '5xl', lg: '6xl' },
+        fontSize: { base: '4xl', lg: '4xl' },
       },
       description: {
-        fontSize: { base: 'lg', md: 'xl' },
+        fontSize: { base: 'xl', lg: '2xl' },
       },
     },
   },

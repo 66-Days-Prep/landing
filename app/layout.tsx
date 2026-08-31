@@ -1,8 +1,13 @@
-import { ColorModeScript, theme } from '@chakra-ui/react'
-import { Metadata } from 'next'
+import { Metadata, Viewport } from 'next'
+
+import {
+  APP_STORE_LINKS,
+  ASSETS,
+  SOCIAL_LINKS,
+  SUPPORT_EMAIL,
+} from '#constants'
 
 import { Provider } from './provider'
-import { APP_STORE_LINKS, ASSETS, SOCIAL_LINKS, SUPPORT_EMAIL } from '#constants'
 
 const baseUrl = 'https://www.66daysprep.com'
 
@@ -17,13 +22,28 @@ export const metadata: Metadata = {
       '66 Days Prep is an AI-powered daily prep system for banking and consulting interviews, with practice drills, streak tracking, resume review, and focused study tools.',
     siteName: '66 Days Prep',
     type: 'website',
+    images: [
+      {
+        url: '/opengraph-image',
+        width: 1200,
+        height: 630,
+        alt: '66 Days Prep — Your daily edge in banking and consulting',
+      },
+    ],
   },
   twitter: {
     card: 'summary_large_image',
+    images: ['/opengraph-image'],
     title: '66 Days Prep - Daily Banking & Consulting Prep',
     description:
       '66 Days Prep is an AI-powered daily prep system for banking and consulting interviews, with practice drills, streak tracking, resume review, and focused study tools.',
   },
+}
+
+export const viewport: Viewport = {
+  colorScheme: 'dark',
+  themeColor: '#0E0E10',
+  viewportFit: 'cover',
 }
 
 const organizationSchema = {
@@ -78,7 +98,7 @@ const softwareAppSchema = {
 }
 
 export default function Layout(props: { children: React.ReactNode }) {
-  const colorMode = theme.config.initialColorMode
+  const colorMode = 'dark'
 
   return (
     <html lang="en" data-theme={colorMode} style={{ colorScheme: colorMode }}>
@@ -86,7 +106,7 @@ export default function Layout(props: { children: React.ReactNode }) {
         <meta name="color-scheme" content={colorMode} />
         <link
           rel="apple-touch-icon"
-          sizes="76x76"
+          sizes="180x180"
           href="/static/favicons/apple-touch-icon.png"
         />
         <link
@@ -122,7 +142,6 @@ export default function Layout(props: { children: React.ReactNode }) {
         />
       </head>
       <body className={`chakra-ui-${colorMode}`}>
-        <ColorModeScript initialColorMode={colorMode} />
         <Provider>{props.children}</Provider>
       </body>
     </html>

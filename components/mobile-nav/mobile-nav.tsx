@@ -1,189 +1,112 @@
 import {
   Box,
-  CloseButton,
-  Flex,
-  HStack,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
   IconButton,
   IconButtonProps,
-  LinkProps,
-  Portal,
+  Link,
   Stack,
+  Text,
   useBreakpointValue,
-  useColorModeValue,
-  useUpdateEffect,
 } from '@chakra-ui/react'
-import { motion } from 'framer-motion'
-import { Link } from '@saas-ui/react'
-import useRouteChanged from 'hooks/use-route-changed'
-import { usePathname } from 'next/navigation'
-import { AiOutlineMenu } from 'react-icons/ai'
-import { RemoveScroll } from 'react-remove-scroll'
+import NextLink from 'next/link'
+import { FiArrowUpRight, FiMenu } from 'react-icons/fi'
 
-import * as React from 'react'
+import { RefObject, forwardRef, useEffect } from 'react'
 
-import { Logo } from '#components/layout/logo'
+import { ButtonLink } from '#components/button-link'
+import { INTERNAL_ROUTES } from '#constants'
 import siteConfig from '#data/config'
 
-const MotionFlex = motion(Flex)
-
-interface NavLinkProps extends LinkProps {
-  label: string
-  href?: string
-  isActive?: boolean
-}
-
-function NavLink({ href, children, isActive, ...rest }: NavLinkProps) {
-  const pathname = usePathname()
-  const bgActiveHoverColor = useColorModeValue('blackAlpha.50', 'whiteAlpha.100')
-  const activeBg = useColorModeValue('gray.100', 'whiteAlpha.100')
-  const activeColor = useColorModeValue('gray.900', 'white')
-  const defaultColor = useColorModeValue('gray.700', 'whiteAlpha.800')
-
-  const [, group] = href?.split('/') || []
-  isActive = isActive ?? pathname?.includes(group)
-
+export function MobileNavContent({
+  isOpen,
+  onClose,
+  finalFocusRef,
+}: {
+  isOpen: boolean
+  onClose: () => void
+  finalFocusRef: RefObject<HTMLButtonElement>
+}) {
+  const desktop = useBreakpointValue({ base: false, lg: true })
+  useEffect(() => {
+    if (desktop) onClose()
+  }, [desktop, onClose])
   return (
-    <Link
-      href={href}
-      display="inline-flex"
-      flex="1"
-      w="100%"
-      minH="40px"
-      px="6"
-      py="3"
-      transition="0.2s all"
-      fontWeight={isActive ? 'semibold' : 'medium'}
-      color={isActive ? activeColor : defaultColor}
-      bg={isActive ? activeBg : undefined}
-      _hover={{
-        bg: bgActiveHoverColor,
-        textDecoration: 'none',
-      }}
-      {...rest}
+    <Drawer
+      isOpen={isOpen}
+      onClose={onClose}
+      placement="right"
+      finalFocusRef={finalFocusRef}
+      size="xs"
     >
-      {children}
-    </Link>
-  )
-}
-
-interface MobileNavContentProps {
-  isOpen?: boolean
-  onClose?: () => void
-}
-
-export function MobileNavContent(props: MobileNavContentProps) {
-  const { isOpen, onClose = () => {} } = props
-  const closeBtnRef = React.useRef<HTMLButtonElement>(null)
-  const backdropColor = useColorModeValue('rgba(15, 23, 42, 0.28)', 'rgba(0, 0, 0, 0.45)')
-  const panelColor = useColorModeValue('white', '#111215')
-  const panelTextColor = useColorModeValue('gray.900', 'white')
-  const panelBorderColor = useColorModeValue('blackAlpha.100', 'whiteAlpha.100')
-
-  useRouteChanged(onClose)
-  /**
-   * Scenario: Menu is open on mobile, and user resizes to desktop/tablet viewport.
-   * Result: We'll close the menu
-   */
-  const showOnBreakpoint = useBreakpointValue({ base: true, lg: false })
-
-  React.useEffect(() => {
-    if (showOnBreakpoint == false) {
-      onClose()
-    }
-  }, [showOnBreakpoint, onClose])
-
-  useUpdateEffect(() => {
-    if (isOpen) {
-      requestAnimationFrame(() => {
-        closeBtnRef.current?.focus()
-      })
-    }
-  }, [isOpen])
-
-  return (
-    <>
-      {isOpen && (
-        <Portal>
-          <RemoveScroll forwardProps>
-            <Box
-              pos="fixed"
-              inset="0"
-              zIndex="modal"
-              bg={backdropColor}
-              backdropFilter="blur(8px)"
-              onClick={onClose}
-            >
-              <MotionFlex
-                direction="column"
-                w="min(288px, 78vw)"
-                maxW="100%"
-                bg={panelColor}
-                color={panelTextColor}
-                h="100vh"
-                overflow="auto"
-                pos="absolute"
-                top="0"
-                right="0"
-                bottom="0"
-                boxShadow="-24px 0 60px rgba(0, 0, 0, 0.25)"
-                borderLeftWidth="1px"
-                borderColor={panelBorderColor}
-                pb="8"
-                initial={{ x: '100%' }}
-                animate={{ x: 0 }}
-                transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
-                onClick={(e) => e.stopPropagation()}
+      <DrawerOverlay bg="rgba(0,0,0,0.6)" backdropFilter="blur(6px)" />
+      <DrawerContent
+        bg="app.surface.panel"
+        color="white"
+        borderLeft="1px solid"
+        borderColor="app.border.strong"
+      >
+        <DrawerCloseButton mt="2" aria-label="Close menu" />
+        <DrawerHeader pt="7">66 Days Prep</DrawerHeader>
+        <DrawerBody id="mobile-navigation">
+          <Stack as="nav" aria-label="Mobile navigation" spacing="2" pt="3">
+            {siteConfig.header.links
+              .filter((link) => link.id)
+              .map((link) => (
+                <Link
+                  as={NextLink}
+                  href={`/#${link.id}`}
+                  key={link.id}
+                  onClick={onClose}
+                  px="4"
+                  py="3"
+                  borderRadius="10px"
+                  color="app.text.secondary"
+                  _hover={{
+                    bg: 'app.surface.cardHover',
+                    textDecoration: 'none',
+                  }}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            <Box pt="5">
+              <ButtonLink
+                href={INTERNAL_ROUTES.downloadMobile}
+                onClick={onClose}
+                variant="primary"
+                w="full"
+                h="48px"
+                rightIcon={<FiArrowUpRight />}
               >
-                <Box>
-                  <Flex justify="space-between" align="center" px="5" pt="5" pb="4">
-                    <Logo />
-                    <HStack spacing="3">
-                      <CloseButton ref={closeBtnRef} onClick={onClose} />
-                    </HStack>
-                  </Flex>
-                  <Stack alignItems="stretch" spacing="1" px="3">
-                    {siteConfig.header.links.map(
-                      ({ href, id, label, ...props }, i) => {
-                        return (
-                          <NavLink
-                            href={href || `/#${id}`}
-                            key={i}
-                            borderRadius="xl"
-                            borderBottomWidth="0"
-                            onClick={onClose}
-                            {...(props as any)}
-                          >
-                            {label}
-                          </NavLink>
-                        )
-                      },
-                    )}
-                  </Stack>
-                </Box>
-              </MotionFlex>
+                Get on the App Store
+              </ButtonLink>
             </Box>
-          </RemoveScroll>
-        </Portal>
-      )}
-    </>
+            <Text fontSize="sm" color="app.text.muted" px="4" pt="3">
+              Made for iPhone and iPad.
+            </Text>
+          </Stack>
+        </DrawerBody>
+      </DrawerContent>
+    </Drawer>
   )
 }
-
-export const MobileNavButton = React.forwardRef(
-  (props: IconButtonProps, ref: React.Ref<any>) => {
+export const MobileNavButton = forwardRef<HTMLButtonElement, IconButtonProps>(
+  function MobileNavButton(props, ref) {
     return (
       <IconButton
         ref={ref}
-        display={{ base: 'flex', md: 'none' }}
-        fontSize="20px"
-        color={useColorModeValue('gray.800', 'inherit')}
+        display={{ base: 'inline-flex', lg: 'none' }}
         variant="ghost"
-        icon={<AiOutlineMenu />}
+        color="white"
+        icon={<FiMenu size={21} />}
+        borderRadius="full"
         {...props}
-        aria-label="Open menu"
       />
     )
   },
 )
-
-MobileNavButton.displayName = 'MobileNavButton'

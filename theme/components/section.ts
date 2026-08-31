@@ -1,7 +1,7 @@
 const Section = {
   baseStyle: {
-    pt: { base: 14, md: 20 },
-    pb: { base: 14, md: 20 },
+    pt: 16,
+    pb: 16,
     px: [4, null],
   },
   variants: {
@@ -9,8 +9,8 @@ const Section = {
     solid: {
       bg: 'primary.400',
     },
-    alternate: ({ colorMode }: any) => ({
-      bg: colorMode === 'dark' ? 'gray.800' : 'gray.50',
+    alternate: () => ({
+      bg: 'app.surface.subtle',
     }),
   },
   defaultProps: {

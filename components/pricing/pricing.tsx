@@ -4,268 +4,174 @@ import {
   Heading,
   Icon,
   SimpleGrid,
-  StackProps,
   Text,
   VStack,
 } from '@chakra-ui/react'
-import { FiArrowRight, FiCheck, FiCheckCircle, FiLock, FiXCircle } from 'react-icons/fi'
+import { FiArrowRight, FiCheck, FiShield } from 'react-icons/fi'
 
-import React from 'react'
+import { ButtonLink } from '#components/button-link'
+import { Section, SectionTitle } from '#components/section'
+import { APP_STORE_LINKS } from '#constants'
+import pricing from '#data/pricing'
+import { rectangularCtaShadow } from '#theme/styles/rectangular-cta-styles'
 
-import {
-  ButtonLink,
-  ButtonLinkProps,
-} from '#components/button-link/button-link'
-import { Section, SectionProps, SectionTitle } from '#components/section'
-
-export interface PricingPlan {
-  id: string
-  title: React.ReactNode
-  description: React.ReactNode
-  price: React.ReactNode
-  features: Array<PricingFeatureProps | null>
-  action: ButtonLinkProps & { label?: string }
-  isRecommended?: boolean
-}
-
-export interface PricingProps extends SectionProps {
-  description: React.ReactNode
-  plans: Array<PricingPlan>
-  align?: 'left' | 'center' | { base: 'center'; md: 'left' }
-}
-
-export const Pricing: React.FC<PricingProps> = (props) => {
-  const { children, plans, title, description, align, ...rest } = props
+export function Pricing() {
   return (
-    <Section id="pricing" {...rest}>
+    <Section id="pricing" innerWidth="1160px">
       <SectionTitle
-        title={title}
-        description={description}
-        align={align}
-        mb={8}
-        pos="relative"
-        zIndex={1}
+        title={pricing.title}
+        description={pricing.description}
+        mb="10"
       />
-      <SimpleGrid columns={[1, null, 3]} spacing={5}>
-        {plans?.map((plan) => {
-          const isFree = plan.id === 'free'
-
-          return (
-            <PricingBox
-              key={plan.id}
-              title={plan.title}
-              description={plan.description}
-              price={plan.price}
-              isRecommended={plan.isRecommended}
+      <SimpleGrid columns={{ base: 1, lg: 3 }} spacing="5">
+        {pricing.plans.map((plan) => (
+          <VStack
+            key={plan.id}
+            align="stretch"
+            spacing="0"
+            p="3"
+            borderRadius="14px"
+            bg="#0C0C0E"
+            border="1px solid rgba(255,255,255,0.13)"
+            boxShadow="inset 0 1px 0 rgba(255,255,255,0.07)"
+            transition="border-color 150ms ease"
+            _hover={{ borderColor: 'whiteAlpha.300' }}
+          >
+            <Box
+              position="relative"
+              overflow="hidden"
+              p="5"
+              borderRadius="10px"
+              border="1px solid"
+              borderColor={
+                plan.recommended ? 'whiteAlpha.400' : 'whiteAlpha.100'
+              }
+              bg={
+                plan.recommended
+                  ? 'radial-gradient(ellipse at 0% 0%, #666970 0%, transparent 55%), radial-gradient(ellipse at 110% 120%, #0d99cc 0%, #076a96 24%, transparent 65%), linear-gradient(145deg, #22252A, #010204 64%)'
+                  : 'linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025))'
+              }
+              _after={
+                plan.recommended
+                  ? {
+                      content: '\"\"',
+                      position: 'absolute',
+                      inset: 0,
+                      opacity: 0.45,
+                      mixBlendMode: 'overlay',
+                      backgroundImage: 'url(/static/images/pricing-grain.svg)',
+                      pointerEvents: 'none',
+                    }
+                  : undefined
+              }
             >
-              <ButtonLink
-                colorScheme={isFree ? 'whiteAlpha' : 'primary'}
-                color="brand.ink"
-                bg={isFree ? 'primary.50' : undefined}
-                borderColor={isFree ? 'primary.700' : undefined}
-                borderWidth={isFree ? '1px' : undefined}
-                _hover={
-                  isFree
-                    ? {
-                        bg: 'primary.100',
-                      }
-                    : undefined
-                }
-                borderRadius="full"
-                w="full"
-                h="42px"
-                px="1"
-                mb="0"
-                textAlign="left"
-                fontWeight="bold"
-                {...plan.action}
-              >
-                <HStack w="full" spacing="2.5" justify="flex-start">
-                  <Box
-                    w="34px"
-                    h="34px"
-                    borderRadius="full"
-                    bg="black"
-                    color="white"
-                    display="inline-flex"
-                    alignItems="center"
-                    justifyContent="center"
-                    flexShrink={0}
+              <Box position="relative" zIndex="1">
+                <HStack justify="space-between" align="center" minH="30px">
+                  <Heading as="h3" fontSize="25px" fontWeight="600">
+                    {plan.title}
+                  </Heading>
+                  {plan.badge && (
+                    <Text
+                      bg="white"
+                      color="black"
+                      fontWeight="600"
+                      fontSize="10px"
+                      borderRadius="5px"
+                      px="2"
+                      py="1"
+                    >
+                      {plan.badge}
+                    </Text>
+                  )}
+                </HStack>
+                <HStack align="baseline" spacing="2" py="6" flexWrap="wrap">
+                  <Text
+                    fontSize="44px"
+                    fontWeight="600"
+                    letterSpacing="-0.055em"
+                    lineHeight="1"
                   >
-                    <Icon as={FiArrowRight} boxSize="16px" />
-                  </Box>
-                  <Text as="span" fontWeight="bold" fontSize="lg">
-                    {plan.action.label || 'Continue'}
+                    {plan.price}
+                  </Text>
+                  <Text fontSize="sm" color="app.text.secondary">
+                    {plan.period}
                   </Text>
                 </HStack>
-              </ButtonLink>
-              <HStack
-                mb="4"
-                mt="-1"
-                spacing="3"
-                justify="center"
-                color="primary.300"
-                opacity={0.72}
-                fontSize="2xs"
-                lineHeight="1"
-                textTransform="uppercase"
+                <ButtonLink
+                  href={APP_STORE_LINKS.ios}
+                  w="full"
+                  h="48px"
+                  borderRadius="12px"
+                  fontSize="15px"
+                  color={plan.recommended ? 'black' : 'white'}
+                  bg={plan.recommended ? 'white' : 'transparent'}
+                  border="1px solid"
+                  borderColor="whiteAlpha.700"
+                  boxShadow={
+                    plan.recommended
+                      ? rectangularCtaShadow.light
+                      : rectangularCtaShadow.darkOutline
+                  }
+                  _hover={{ bg: 'white', color: 'black' }}
+                  rightIcon={<FiArrowRight />}
+                >
+                  {plan.action}
+                </ButtonLink>
+              </Box>
+            </Box>
+            <Box px="3" pt="5" pb="3">
+              <Text
+                fontSize="sm"
+                color="app.text.secondary"
+                lineHeight="1.6"
+                minH={{ base: 'auto', lg: '66px' }}
+                mb="5"
               >
-                <HStack spacing="1">
-                  <Icon as={FiLock} boxSize="12px" />
-                  <Text as="span">Secure Checkout</Text>
-                </HStack>
-                <Text as="span">|</Text>
-                <HStack spacing="1">
-                  <Icon as={FiXCircle} boxSize="12px" />
-                  <Text as="span">Cancel Anytime</Text>
-                </HStack>
-              </HStack>
-              <PricingFeatures>
-                {plan.features.map((feature, i) =>
-                  feature ? (
-                    <PricingFeature
-                      key={`${plan.id}-feature-${i}`}
-                      useCircleIcon={!isFree}
-                      {...feature}
+                {plan.description}
+              </Text>
+              <VStack
+                as="ul"
+                listStyleType="none"
+                align="stretch"
+                spacing="3"
+                m="0"
+              >
+                {plan.features.map((feature) => (
+                  <HStack as="li" key={feature} align="start" spacing="2.5">
+                    <Icon
+                      as={FiCheck}
+                      mt="3px"
+                      boxSize="16px"
+                      color="primary.400"
+                      flexShrink={0}
                     />
-                  ) : (
-                    <br key={`${plan.id}-spacer-${i}`} />
-                  ),
-                )}
-              </PricingFeatures>
-            </PricingBox>
-          )
-        })}
+                    <Text
+                      fontSize="sm"
+                      lineHeight="1.5"
+                      color="app.text.secondary"
+                    >
+                      {feature}
+                    </Text>
+                  </HStack>
+                ))}
+              </VStack>
+            </Box>
+          </VStack>
+        ))}
       </SimpleGrid>
-      {children}
-    </Section>
-  )
-}
-
-const PricingFeatures: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
-  return (
-    <VStack
-      align="stretch"
-      justifyContent="stretch"
-      spacing="4"
-      mb="2"
-      flex="1"
-    >
-      {children}
-    </VStack>
-  )
-}
-
-export interface PricingFeatureProps {
-  title: React.ReactNode
-  iconColor?: string
-  useCircleIcon?: boolean
-}
-
-const PricingFeature: React.FC<PricingFeatureProps> = (props) => {
-  const { title, iconColor = 'primary.400', useCircleIcon = true } = props
-  return (
-    <HStack>
-      <Icon
-        as={useCircleIcon ? FiCheckCircle : FiCheck}
-        color={iconColor}
-        boxSize="16px"
-        flexShrink={0}
-      />
-      <Text flex="1" fontSize="sm" lineHeight="1.45">
-        {title}
-      </Text>
-    </HStack>
-  )
-}
-
-export interface PricingBoxProps extends Omit<StackProps, 'title'> {
-  title: React.ReactNode
-  description: React.ReactNode
-  price: React.ReactNode
-  isRecommended?: boolean
-}
-
-const PricingBox: React.FC<PricingBoxProps> = (props) => {
-  const {
-    title,
-    description,
-    price,
-    children,
-    isRecommended = false,
-    ...rest
-  } = props
-  return (
-    <VStack
-      position="relative"
-      overflow="hidden"
-      bg={
-        isRecommended
-          ? 'linear-gradient(145deg, rgba(245, 238, 221, 0.105) 0%, rgba(196, 176, 136, 0.055) 54%, rgba(245, 238, 221, 0.05) 100%)'
-          : 'linear-gradient(145deg, rgba(245, 238, 221, 0.075) 0%, rgba(196, 176, 136, 0.028) 62%, rgba(245, 238, 221, 0.045) 100%)'
-      }
-      backdropFilter="blur(18px) saturate(125%)"
-      borderRadius="28px"
-      px="6"
-      pt="6"
-      pb="5"
-      flex="1 0"
-      alignItems="stretch"
-      border="1px solid"
-      borderColor={isRecommended ? 'primary.400' : 'app.border.subtle'}
-      boxShadow={
-        isRecommended
-          ? 'inset 0 1px 0 rgba(245, 238, 221, 0.11), 0 18px 48px rgba(0, 0, 0, 0.2), 0 0 42px rgba(196, 176, 136, 0.08)'
-          : 'inset 0 1px 0 rgba(245, 238, 221, 0.075), 0 14px 38px rgba(0, 0, 0, 0.14)'
-      }
-      _before={{
-        content: '""',
-        position: 'absolute',
-        top: '-100px',
-        right: '-90px',
-        w: '220px',
-        h: '220px',
-        borderRadius: 'full',
-        bg: isRecommended
-          ? 'rgba(196, 176, 136, 0.12)'
-          : 'rgba(196, 176, 136, 0.055)',
-        filter: 'blur(42px)',
-        pointerEvents: 'none',
-      }}
-      _hover={{
-        borderColor: isRecommended ? 'primary.300' : 'app.border.strong',
-        transform: 'translateY(-3px)',
-        boxShadow: isRecommended
-          ? 'inset 0 1px 0 rgba(245, 238, 221, 0.14), 0 22px 54px rgba(0, 0, 0, 0.24), 0 0 48px rgba(196, 176, 136, 0.1)'
-          : 'inset 0 1px 0 rgba(245, 238, 221, 0.1), 0 18px 44px rgba(0, 0, 0, 0.18)',
-      }}
-      transition="transform 0.24s ease, border-color 0.24s ease, box-shadow 0.24s ease"
-      {...rest}
-    >
-      <Heading
-        as="h3"
-        size="md"
-        fontWeight="semibold"
-        fontSize="xl"
-        mb="2"
-        letterSpacing="-0.02em"
-        color="app.text.primary"
-        position="relative"
-        zIndex={1}
+      <Text
+        mt="7"
+        textAlign="center"
+        fontSize="sm"
+        lineHeight="1.7"
+        color="app.text.muted"
+        maxW="680px"
+        mx="auto"
       >
-        {title}
-      </Heading>
-      <Box color="app.text.muted" position="relative" zIndex={1}>
-        {description}
-      </Box>
-      <Box fontSize="2xl" fontWeight="bold" pt="4" pb="2" position="relative" zIndex={1}>
-        {price}
-      </Box>
-      <VStack align="stretch" justifyContent="stretch" spacing="4" flex="1" position="relative" zIndex={1}>
-        {children}
-      </VStack>
-    </VStack>
+        <Icon as={FiShield} mr="2" verticalAlign="-2px" />
+        Prices in USD. Subscriptions are purchased and managed through the App
+        Store. Local prices and available offers are shown before purchase.
+      </Text>
+    </Section>
   )
 }

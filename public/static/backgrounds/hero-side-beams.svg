@@ -1,0 +1,33 @@
+<svg width="720" height="900" viewBox="0 0 720 900" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="beam" x1="40" y1="0" x2="570" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9F2FF" stop-opacity="0.72"/>
+      <stop offset="0.46" stop-color="#DDEAFF" stop-opacity="0.28"/>
+      <stop offset="1" stop-color="#DDEAFF" stop-opacity="0"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="0" cy="0" r="1" gradientTransform="translate(0 70) rotate(44) scale(430 390)" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#E9F2FF" stop-opacity="0.2"/>
+      <stop offset="0.42" stop-color="#DDEAFF" stop-opacity="0.06"/>
+      <stop offset="1" stop-color="#DDEAFF" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="fade" x1="360" y1="0" x2="360" y2="900" gradientUnits="userSpaceOnUse">
+      <stop stop-color="white"/>
+      <stop offset="0.68" stop-color="white" stop-opacity="0.88"/>
+      <stop offset="1" stop-color="white" stop-opacity="0"/>
+    </linearGradient>
+    <filter id="soft" x="-240" y="-240" width="1200" height="1380" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+      <feGaussianBlur stdDeviation="21"/>
+    </filter>
+    <mask id="vertical-fade">
+      <rect width="720" height="900" fill="url(#fade)"/>
+    </mask>
+  </defs>
+  <g mask="url(#vertical-fade)">
+    <ellipse cx="0" cy="70" rx="430" ry="390" fill="url(#glow)"/>
+    <g filter="url(#soft)">
+      <path d="M-130 -70H-70L350 970H250L-130 -70Z" fill="url(#beam)" opacity="0.62"/>
+      <path d="M-70 -70H0L600 970H505L-70 -70Z" fill="url(#beam)"/>
+      <path d="M-10 -70H50L865 970H780L-10 -70Z" fill="url(#beam)" opacity="0.46"/>
+    </g>
+  </g>
+</svg>

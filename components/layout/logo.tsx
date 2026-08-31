@@ -1,41 +1,43 @@
-import { Box, Flex, Heading, VisuallyHidden } from '@chakra-ui/react'
-import { Link } from '@saas-ui/react'
+import { Box, Image, Link, Text } from '@chakra-ui/react'
+import NextLink from 'next/link'
 
-import * as React from 'react'
-
-import siteConfig from '#data/config'
+import { ASSETS } from '#constants'
 
 export interface LogoProps {
   href?: string
-  onClick?: (e: React.MouseEvent<HTMLAnchorElement>) => void
+  onClick?: (event: React.MouseEvent<HTMLAnchorElement>) => void
 }
 
-export const Logo = ({ href = '/', onClick }: LogoProps) => {
-  let logo
-  if (siteConfig.logo) {
-    logo = <Box as={siteConfig.logo} height="32px" mt="-4px" />
-  } else {
-    logo = (
-      <Heading as="h1" size="md">
-        {siteConfig.seo?.title}
-      </Heading>
-    )
-  }
-
+export function Logo({ href = '/', onClick }: LogoProps) {
   return (
-    <Flex h="8" flexShrink="0" alignItems="flex-start">
-      <Link
-        href={href}
-        display="flex"
-        p="1"
-        borderRadius="sm"
-        onClick={onClick}
-        textDecoration="none"
-        _hover={{ textDecoration: 'none' }}
+    <Link
+      as={NextLink}
+      href={href}
+      onClick={onClick}
+      aria-label="66 Days Prep home"
+      display="inline-flex"
+      alignItems="center"
+      gap="2.5"
+      flexShrink={0}
+      borderRadius="8px"
+      _hover={{ textDecoration: 'none' }}
+    >
+      <Image
+        src={ASSETS.images.logo}
+        alt=""
+        w="34px"
+        h="34px"
+        borderRadius="9px"
+      />
+      <Text
+        as="span"
+        fontSize={{ base: '17px', md: '20px' }}
+        fontWeight="700"
+        color="white"
+        letterSpacing="-0.5px"
       >
-        {logo}
-        <VisuallyHidden>{siteConfig.seo?.title}</VisuallyHidden>
-      </Link>
-    </Flex>
+        66 Days Prep
+      </Text>
+    </Link>
   )
 }

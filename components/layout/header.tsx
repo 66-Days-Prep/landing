@@ -1,100 +1,77 @@
-import {
-  Box,
-  BoxProps,
-  Container,
-  Flex,
-  useColorModeValue,
-  useDisclosure,
-} from '@chakra-ui/react'
-import { useScroll } from 'framer-motion'
-import * as React from 'react'
+'use client'
+
+import { Box, BoxProps, Container, Flex, useDisclosure } from '@chakra-ui/react'
+
+import { useEffect, useRef, useState } from 'react'
+
 import { Logo } from './logo'
 import Navigation from './navigation'
 
 export interface HeaderProps extends Omit<BoxProps, 'children'> {}
 
-export const Header = (props: HeaderProps) => {
-  const ref = React.useRef<HTMLHeadingElement>(null)
-  const [y, setY] = React.useState(0)
-  const { height = 0 } = ref.current?.getBoundingClientRect() ?? {}
-  const { scrollY } = useScroll()
-  
-  React.useEffect(() => {
-    return scrollY.on('change', () => setY(scrollY.get()))
-  }, [scrollY])
-  
-  const isScrolled = y > height
-  const mobileNav = useDisclosure()
-  const hasHeaderSurface = isScrolled || mobileNav.isOpen
-  const bg = useColorModeValue('rgba(245, 238, 221, 0.78)', 'rgba(24, 19, 15, 0.78)')
-  
+export function Header(props: HeaderProps) {
+  const sentinel = useRef<HTMLDivElement>(null)
+  const [scrolled, setScrolled] = useState(false)
+  const menu = useDisclosure()
+  useEffect(() => {
+    if (!sentinel.current) return
+    const observer = new IntersectionObserver(([entry]) =>
+      setScrolled(!entry.isIntersecting),
+    )
+    observer.observe(sentinel.current)
+    return () => observer.disconnect()
+  }, [])
   return (
-    <Box
-      ref={ref}
-      as="header"
-      top="0"
-      w="full"
-      position="fixed"
-      zIndex="sticky"
-      pointerEvents="none"
-      {...props}
-    >
-      <Container
-        maxW="container.xl"
-        px={{ base: 0, md: '4', lg: '12' }}
-        py={isScrolled ? { base: 0, md: 3 } : 0}
-        transition="padding 0.32s cubic-bezier(0.22, 1, 0.36, 1)"
+    <>
+      <Box
+        ref={sentinel}
+        aria-hidden="true"
+        position="absolute"
+        top="72px"
+        boxSize="1px"
+        pointerEvents="none"
+      />
+      <Box
+        as="header"
+        position="fixed"
+        top="0"
+        insetX="0"
+        zIndex="sticky"
+        pointerEvents="none"
+        {...props}
       >
-        <Flex
-          width="full"
-          align="center"
-          gap="4"
-          py={isScrolled ? { base: 4, md: 3 } : 4}
-          pl={isScrolled ? { base: 4, md: 6 } : { base: 4, md: 0 }}
-          pr={isScrolled ? { base: 4, md: 4 } : { base: 4, md: 0 }}
-          bg={hasHeaderSurface ? bg : 'transparent'}
-          borderWidth={hasHeaderSurface ? { base: '0 0 1px', md: '1px' } : '0'}
-          borderColor={hasHeaderSurface ? 'rgba(196, 176, 136, 0.16)' : 'transparent'}
-          borderRadius={isScrolled ? { base: '0', md: 'full' } : '0'}
-          boxShadow={
-            hasHeaderSurface
-              ? {
-                  base: '0 10px 28px rgba(0,0,0,0.22)',
-                  md: '0 16px 48px rgba(0,0,0,0.38), 0 2px 12px rgba(0,0,0,0.22), inset 0 0 0 1px rgba(255,255,255,0.035)',
-                }
-              : '0 0 0 rgba(0,0,0,0), inset 0 0 0 rgba(255,255,255,0)'
-          }
-          backdropFilter={hasHeaderSurface ? 'blur(22px) saturate(1.35)' : 'none'}
-          transform={isScrolled ? 'translateY(0)' : { base: 'translateY(0)', md: 'translateY(-2px)' }}
-          transitionProperty="padding, background-color, border-color, border-radius, box-shadow, backdrop-filter, transform"
-          transitionDuration="0.32s"
-          transitionTimingFunction="cubic-bezier(0.22, 1, 0.36, 1)"
-          pointerEvents="auto"
+        <Container
+          maxW="1440px"
+          px={{ base: 4, md: 6, lg: 12 }}
+          pt={{ base: 'calc(env(safe-area-inset-top) + 8px)', md: 3 }}
         >
-          <Box flexShrink={0}>
-            <Logo
-              onClick={(e) => {
-                if (window.location.pathname === '/') {
-                  e.preventDefault()
-                  window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth',
-                  })
-                }
-              }}
-            />
-          </Box>
-          
-          <Box flex="1" minW={0}>
+          <Flex
+            align="center"
+            gap="4"
+            justify="space-between"
+            position="relative"
+            py={scrolled ? 2.5 : 3}
+            px={scrolled ? { base: 3, md: 5 } : { base: 1, md: 0 }}
+            border="1px solid"
+            borderColor={
+              scrolled || menu.isOpen ? 'app.border.strong' : 'transparent'
+            }
+            borderRadius="full"
+            bg={scrolled || menu.isOpen ? 'app.surface.header' : 'transparent'}
+            backdropFilter={scrolled || menu.isOpen ? 'blur(22px)' : 'none'}
+            boxShadow={scrolled ? '0 16px 48px rgba(0,0,0,0.3)' : 'none'}
+            transition="padding 200ms ease, background-color 200ms ease, border-color 200ms ease"
+            pointerEvents="auto"
+          >
+            <Logo />
             <Navigation
-              centerLinks
-              mobileNavIsOpen={mobileNav.isOpen}
-              onMobileNavToggle={mobileNav.onToggle}
-              onMobileNavClose={mobileNav.onClose}
+              mobileNavIsOpen={menu.isOpen}
+              onMobileNavToggle={menu.onToggle}
+              onMobileNavClose={menu.onClose}
             />
-          </Box>
-        </Flex>
-      </Container>
-    </Box>
+          </Flex>
+        </Container>
+      </Box>
+    </>
   )
 }

@@ -1,161 +1,65 @@
-import { HStack, Text, VStack } from '@chakra-ui/react'
+// Prices match the checked-in iOS StoreKit configuration. Verify live App Store
+// prices before release; introductory-offer eligibility is determined by Apple.
+export const SUBSCRIPTION_PRICING = {
+  monthly: 15.99,
+  yearly: 49.99,
+  currency: 'USD',
+} as const
 
-import { APP_STORE_LINKS } from '#constants'
+const proFeatures = [
+  'AI coach and personalized feedback',
+  'Daily math, case, and Excel drills',
+  '66-day streak tracker and progress heatmap',
+  'AI resume review and quick practice',
+  'Pomodoro timer and screen blocker',
+  'Excel shortcut and formula guide',
+  'Banking and consulting resource hub',
+]
 
 export default {
-  title: 'Pricing',
+  title: 'Invest in your next chapter.',
   description:
-    'Simple, transparent pricing for all',
+    'Choose the pace that fits your preparation. Build the skills that stay with you.',
   plans: [
     {
       id: 'free',
-      title: 'Free',
-      description: 'Try full features for FREE',
-      price: (
-        <VStack spacing="1" align="flex-start">
-          <Text
-            fontSize="xl"
-            fontWeight="normal"
-            visibility="hidden"
-            userSelect="none"
-          >
-            $15.99 / month
-          </Text>
-          <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95">
-            Free
-          </Text>
-        </VStack>
-      ),
+      title: 'Get started',
+      price: 'Free',
+      period: 'to download',
+      badge: '',
+      description:
+        'Download 66 Days Prep and explore your preparation options in the app.',
+      action: 'Download free',
+      recommended: false,
       features: [
-        {
-          title: 'Explore all drills, tools, and the AI coach with no limits',
-        },
-        {
-          title: 'No ads, no hidden fees',
-        },
-        {
-          title: 'Cancel anytime before the trial ends',
-        },
+        'Available for iPhone and iPad',
+        'Explore the app before choosing a plan',
+        'Subscriptions and any available offers shown in-app',
       ],
-      action: {
-        href: APP_STORE_LINKS.ios,
-        label: 'Start free',
-      },
     },
     {
       id: 'monthly',
       title: 'Monthly',
-      description: 'Popular',
-      price: (
-        <VStack spacing="1" align="flex-start">
-          <Text
-            fontSize="xl"
-            color="gray.500"
-            textDecoration="line-through"
-            fontWeight="normal"
-          >
-            $39.99 / month
-          </Text>
-          <HStack spacing="2" align="baseline">
-            <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95" color="green.500">
-              $15.99
-            </Text>
-            <Text fontSize="md" color="muted" fontWeight="normal">
-              / month
-            </Text>
-          </HStack>
-        </VStack>
-      ),
-      isRecommended: true,
-      features: [
-        {
-          title: 'AI-powered coach for personalized feedback',
-        },
-        {
-          title: 'Unlimited daily drills in math, cases, and Excel',
-        },
-        {
-          title: '66-day streak tracker and heatmap',
-        },
-        {
-          title: 'AI resume checker and quick practice mode',
-        },
-        {
-          title: 'Pomodoro timer and screen blocker',
-        },
-        {
-          title: 'Complete Excel shortcut and formula guide',
-        },
-        {
-          title: 'Full resource hub for consulting and banking prep',
-        },
-        null,
-        {
-          title: 'Ideal for short-term prep before interviews or assessments',
-          iconColor: 'green.500',
-        },
-      ],
-      action: {
-        href: APP_STORE_LINKS.ios,
-        label: 'Start monthly',
-      },
+      price: `$${SUBSCRIPTION_PRICING.monthly}`,
+      period: '/ month',
+      badge: 'Popular',
+      description:
+        'Full access for focused preparation when your next interview is coming up.',
+      action: 'Get monthly',
+      recommended: true,
+      features: proFeatures,
     },
     {
       id: 'yearly',
       title: 'Yearly',
-      description: 'Best Value',
-      price: (
-        <VStack spacing="1" align="flex-start">
-          <Text
-            fontSize="xl"
-            color="gray.500"
-            textDecoration="line-through"
-            fontWeight="normal"
-          >
-            $149.99 / year
-          </Text>
-          <HStack spacing="2" align="baseline">
-            <Text fontSize={{ base: '6xl', md: '7xl' }} fontWeight="semibold" lineHeight="0.95" color="green.500">
-              $59.99
-            </Text>
-            <Text fontSize="md" color="muted" fontWeight="normal">
-              / year
-            </Text>
-          </HStack>
-        </VStack>
-      ),
-      features: [
-        {
-          title: 'AI-powered coach for personalized feedback',
-        },
-        {
-          title: 'Unlimited daily drills in math, cases, and Excel',
-        },
-        {
-          title: '66-day streak tracker and heatmap',
-        },
-        {
-          title: 'AI resume checker and quick practice mode',
-        },
-        {
-          title: 'Pomodoro timer and screen blocker',
-        },
-        {
-          title: 'Complete Excel shortcut and formula guide',
-        },
-        {
-          title: 'Full resource hub for consulting and banking prep',
-        },
-        null,
-        {
-          title: 'Perfect for long-term prep, habit tracking, and consistent progress',
-          iconColor: 'green.500',
-        },
-      ],
-      action: {
-        href: APP_STORE_LINKS.ios,
-        label: 'Start yearly',
-      },
+      price: `$${SUBSCRIPTION_PRICING.yearly}`,
+      period: '/ year',
+      badge: 'Best value',
+      description:
+        'A full year to strengthen your fundamentals and keep your momentum going.',
+      action: 'Get yearly',
+      recommended: false,
+      features: proFeatures,
     },
   ],
 }

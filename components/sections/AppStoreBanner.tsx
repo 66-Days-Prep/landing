@@ -1,90 +1,73 @@
 'use client'
 
-import { Box, HStack, Stack, Text, VStack } from '@chakra-ui/react'
-import Image from 'next/image'
+import { Box, HStack, Image, Text } from '@chakra-ui/react'
+import { FaApple } from 'react-icons/fa'
+
 import { useEffect, useState } from 'react'
 
-import { ButtonLink } from '#components/button-link/button-link'
+import { ButtonLink } from '#components/button-link'
 import { ASSETS, INTERNAL_ROUTES } from '#constants'
 
 export function AppStoreBanner() {
-  const [visible, setVisible] = useState(true)
-  const [scrollPos, setScrollPos] = useState(0)
-
+  const [heroVisible, setHeroVisible] = useState(true)
+  const [footerVisible, setFooterVisible] = useState(false)
   useEffect(() => {
-    const handleScroll = () => {
-      const currentScrollPos = window.pageYOffset
-
-      if (Math.abs(scrollPos - currentScrollPos) > 10) {
-        const isVisible = scrollPos > currentScrollPos || currentScrollPos < 10
-        setScrollPos(currentScrollPos)
-        setVisible(isVisible)
-      }
-    }
-
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [scrollPos])
-
+    const hero = document.getElementById('home')
+    const footer = document.querySelector('footer')
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.target === hero) setHeroVisible(entry.isIntersecting)
+        if (entry.target === footer) setFooterVisible(entry.isIntersecting)
+      })
+    })
+    if (hero) observer.observe(hero)
+    if (footer) observer.observe(footer)
+    return () => observer.disconnect()
+  }, [])
+  if (heroVisible || footerVisible) return null
   return (
-    <Box
-      position="fixed"
-      bottom="0"
-      left="0"
-      right="0"
-      bg="rgba(0, 0, 0, 0.86)"
-      backdropFilter="blur(10px)"
-      py="3"
-      px="4"
+    <HStack
       display={{ base: 'flex', md: 'none' }}
-      alignItems="center"
-      justifyContent="space-between"
-      borderTop="1px solid rgba(196, 176, 136, 0.18)"
-      zIndex="1000"
-      boxShadow="0 -4px 10px rgba(0, 0, 0, 0.1)"
-      transform={visible ? 'translateY(0)' : 'translateY(100%)'}
-      transition="transform 0.3s ease-in-out"
+      position="fixed"
+      insetX="0"
+      bottom="0"
+      zIndex="banner"
+      spacing="3"
+      bg="rgba(18,19,22,0.96)"
+      backdropFilter="blur(14px)"
+      borderTop="1px solid"
+      borderColor="app.border.strong"
+      px="4"
+      pt="3"
+      pb="calc(12px + env(safe-area-inset-bottom))"
+      justify="space-between"
     >
-      <Stack direction="row" spacing="3" align="center" flex="1">
+      <HStack spacing="2">
         <Image
           src={ASSETS.images.logo}
-          width={40}
-          height={40}
-          alt="66 Days Prep App Icon"
-          style={{ borderRadius: '8px' }}
+          alt=""
+          boxSize="34px"
+          borderRadius="8px"
         />
-        <VStack align="flex-start" spacing="0">
-          <HStack spacing="2" align="center">
-            <Text color="white" fontWeight="bold" fontSize="sm">
-              66 Days Prep
-            </Text>
-            <Text color="primary.300" fontSize="xs" fontWeight="medium">
-              4.9 / 5 ★
-            </Text>
-          </HStack>
-          <Text color="gray.300" fontSize="xs">
-            Download on the App Store
+        <Box>
+          <Text fontSize="sm" fontWeight="600">
+            66 Days Prep
           </Text>
-        </VStack>
-      </Stack>
-
+          <Text fontSize="11px" color="app.text.muted">
+            Daily interview prep
+          </Text>
+        </Box>
+      </HStack>
       <ButtonLink
         href={INTERNAL_ROUTES.downloadMobile}
-        colorScheme="primary"
+        variant="primary"
         size="sm"
-        color="brand.ink"
-        fontWeight="bold"
-        leftIcon={
-          <Image
-            src={ASSETS.images.appleAppStore}
-            width={14}
-            height={14}
-            alt="Apple"
-          />
-        }
+        borderRadius="10px"
+        h="40px"
+        leftIcon={<FaApple />}
       >
-        Try It Now
+        Get the app
       </ButtonLink>
-    </Box>
+    </HStack>
   )
 }

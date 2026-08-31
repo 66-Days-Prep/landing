@@ -3,143 +3,162 @@ import {
   BoxProps,
   Container,
   Flex,
+  Grid,
   HStack,
+  Icon,
   Image,
+  Link,
   SimpleGrid,
   Stack,
   Text,
-  VStack,
 } from '@chakra-ui/react'
-import { Link, LinkProps } from '@saas-ui/react'
+import NextLink from 'next/link'
+import { FaInstagram, FaLinkedinIn, FaTiktok } from 'react-icons/fa'
 
-import { APP_STORE_LINKS, ASSETS } from '#constants'
-import siteConfig from '#data/config'
+import {
+  APP_STORE_LINKS,
+  ASSETS,
+  INTERNAL_ROUTES,
+  SOCIAL_LINKS,
+  SUPPORT_EMAIL,
+} from '#constants'
 
-export interface FooterProps extends BoxProps {
-  columns?: number
-}
+import { Logo } from './logo'
 
-export const Footer: React.FC<FooterProps> = (props) => {
-  const { ...rest } = props
-  const utilityLinks = siteConfig.footer.links.slice(0, 3)
-  const socialLinks = siteConfig.footer.links.slice(3)
+export interface FooterProps extends BoxProps {}
+const columns = [
+  {
+    title: 'Product',
+    links: [
+      { label: 'Features', href: '/#benefits' },
+      { label: 'How it works', href: '/#features' },
+      { label: 'Reviews', href: '/#testimonials' },
+      { label: 'Pricing', href: '/#pricing' },
+    ],
+  },
+  {
+    title: 'Get started',
+    links: [
+      { label: 'iPhone & iPad app', href: APP_STORE_LINKS.ios },
+      { label: 'AI practice', href: '/#ai-practice' },
+      { label: 'Questions & answers', href: '/#faq' },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { label: 'Contact', href: `mailto:${SUPPORT_EMAIL}` },
+      { label: 'Terms of Service', href: INTERNAL_ROUTES.terms },
+      { label: 'Privacy Policy', href: INTERNAL_ROUTES.privacy },
+    ],
+  },
+]
 
+export function Footer(props: FooterProps) {
   return (
     <Box
       as="footer"
-      bg="rgba(10, 9, 8, 0.97)"
+      bg="#08080A"
       borderTop="1px solid"
-      borderColor="app.border.subtle"
-      position="relative"
-      zIndex={1}
-      width="100%"
-      {...rest}
+      borderColor="whiteAlpha.100"
+      {...props}
     >
-      <Container maxW="container.2xl" px={{ base: 6, md: 8 }} py={{ base: 10, md: 12 }}>
-        <Stack spacing={{ base: 10, md: 12 }}>
-          <SimpleGrid
-            columns={{ base: 1, lg: 2 }}
-            spacing={{ base: 10, lg: 20 }}
-            alignItems="start"
-          >
-            <VStack align="flex-start" spacing="6" maxW="500px">
-              <Box as={siteConfig.logo} height="32px" />
-              <Text color="app.text.muted" fontSize="md" lineHeight="1.7">
-                {siteConfig.seo.description}
-              </Text>
-              <Link
-                href={APP_STORE_LINKS.ios}
-                isExternal
-                _hover={{ opacity: 0.82 }}
-                transition="opacity 0.2s ease"
-              >
-                <Image
-                  src={ASSETS.images.appStoreBadge}
-                  alt="Download 66 Days Prep on the App Store"
-                  height="42px"
-                />
-              </Link>
-            </VStack>
-
-            <Stack
-              align={{ base: 'flex-start', lg: 'flex-end' }}
-              spacing="6"
-              pt={{ base: 0, lg: 1 }}
+      <Container
+        maxW="1320px"
+        px={{ base: 6, md: 8 }}
+        py={{ base: 10, md: 14 }}
+      >
+        <Grid
+          templateColumns={{ base: '1fr', lg: '0.9fr 1.1fr' }}
+          gap={{ base: 10, lg: 20 }}
+        >
+          <Stack align="start" spacing="5" maxW="380px">
+            <Logo />
+            <Text fontSize="md" lineHeight="1.7" color="app.text.muted">
+              A daily prep system for ambitious banking and consulting
+              candidates. Build your skills, keep your momentum, and show up
+              ready.
+            </Text>
+            <Link
+              href={APP_STORE_LINKS.ios}
+              aria-label="Download 66 Days Prep on the App Store"
+              _hover={{ opacity: 0.8 }}
             >
-              <Text
-                color="app.text.primary"
-                fontSize="sm"
-                fontWeight="700"
-                letterSpacing="0.04em"
-                textTransform="uppercase"
-              >
-                Company
-              </Text>
-              <Flex
-                gap={{ base: 4, md: 6 }}
-                flexWrap="wrap"
-                justify={{ base: 'flex-start', lg: 'flex-end' }}
-              >
-                {utilityLinks.map(({ href, label }) => (
-                  <FooterLink key={href} href={href}>
-                    {label}
-                  </FooterLink>
+              <Image
+                src={ASSETS.images.appStoreBadge}
+                alt="Download on the App Store"
+                h="40px"
+                w="120px"
+                objectFit="contain"
+                loading="lazy"
+              />
+            </Link>
+          </Stack>
+          <SimpleGrid columns={{ base: 2, md: 3 }} spacing="8">
+            {columns.map((column) => (
+              <Stack key={column.title} align="start" spacing="3.5">
+                <Text fontSize="sm" fontWeight="700" mb="1">
+                  {column.title}
+                </Text>
+                {column.links.map((link) => (
+                  <Link
+                    as={NextLink}
+                    key={link.label}
+                    href={link.href}
+                    fontSize="sm"
+                    lineHeight="1.5"
+                    color="app.text.muted"
+                    _hover={{ color: 'white', textDecoration: 'none' }}
+                  >
+                    {link.label}
+                  </Link>
                 ))}
-              </Flex>
-            </Stack>
+              </Stack>
+            ))}
           </SimpleGrid>
-
-          <Flex
-            pt="6"
-            borderTop="1px solid"
-            borderColor="app.border.subtle"
-            direction={{ base: 'column', md: 'row' }}
-            justify="space-between"
-            align={{ base: 'flex-start', md: 'center' }}
-            gap="5"
-          >
-            <Copyright>{siteConfig.footer.copyright}</Copyright>
-            <HStack spacing="4">
-              {socialLinks.map(({ href, label }) => (
-                <FooterLink key={href} href={href} isExternal>
-                  {label}
-                </FooterLink>
-              ))}
-            </HStack>
-          </Flex>
-        </Stack>
+        </Grid>
+        <Flex
+          mt="12"
+          pt="6"
+          borderTop="1px solid"
+          borderColor="whiteAlpha.100"
+          direction={{ base: 'column', md: 'row' }}
+          justify="space-between"
+          align={{ base: 'start', md: 'center' }}
+          gap="5"
+        >
+          <Text fontSize="xs" color="app.text.faint">
+            © {new Date().getFullYear()} Uru Technologies LLC. All rights
+            reserved.
+          </Text>
+          <HStack spacing="5">
+            {[
+              {
+                label: 'LinkedIn',
+                href: SOCIAL_LINKS.linkedin,
+                icon: FaLinkedinIn,
+              },
+              { label: 'TikTok', href: SOCIAL_LINKS.tiktok, icon: FaTiktok },
+              {
+                label: 'Instagram',
+                href: SOCIAL_LINKS.instagram,
+                icon: FaInstagram,
+              },
+            ].map((link) => (
+              <Link
+                key={link.label}
+                href={link.href}
+                isExternal
+                aria-label={link.label}
+                color="app.text.muted"
+                _hover={{ color: 'white' }}
+              >
+                <Icon as={link.icon} boxSize="18px" />
+              </Link>
+            ))}
+          </HStack>
+        </Flex>
       </Container>
     </Box>
-  )
-}
-
-export interface CopyrightProps {
-  title?: React.ReactNode
-  children: React.ReactNode
-}
-
-export const Copyright: React.FC<CopyrightProps> = ({ title, children }) => {
-  const content = title && !children ? `&copy; ${new Date().getFullYear()} - ${title}` : children
-
-  return (
-    <Text color="app.text.faint" fontSize="sm">
-      {content}
-    </Text>
-  )
-}
-
-export const FooterLink: React.FC<LinkProps> = (props) => {
-  const { children, ...rest } = props
-  return (
-    <Link
-      color="app.text.muted"
-      fontSize="sm"
-      textDecoration="none"
-      _hover={{ color: 'app.text.primary' }}
-      transition="color 0.2s ease"
-      {...rest}
-    >
-      {children}
-    </Link>
   )
 }
