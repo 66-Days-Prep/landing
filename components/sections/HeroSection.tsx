@@ -1,25 +1,17 @@
 'use client'
 
-import {
-  Box,
-  Container,
-  HStack,
-  Heading,
-  Icon,
-  Link,
-  Stack,
-  Text,
-} from '@chakra-ui/react'
+import { Box, Container, HStack, Heading, Stack, Text } from '@chakra-ui/react'
 import Image from 'next/image'
-import NextLink from 'next/link'
 import { FaApple, FaStar } from 'react-icons/fa'
 import { FiArrowRight } from 'react-icons/fi'
-import { PiSealCheckFill } from 'react-icons/pi'
 
 import { HeroBackground } from '#components/background/hero-background'
 import { ButtonLink } from '#components/button-link'
 import { ASSETS, INTERNAL_ROUTES } from '#constants'
+import { AUDIENCE_COUNT } from '#data/marketing'
 import { rectangularCtaShadow } from '#theme/styles/rectangular-cta-styles'
+
+import { HeroAnnouncement } from './HeroAnnouncement'
 
 export function HeroSection() {
   return (
@@ -38,32 +30,7 @@ export function HeroSection() {
         pb={{ base: 8, md: 12 }}
         textAlign="center"
       >
-        <Link
-          as={NextLink}
-          href="/#testimonials"
-          display="inline-flex"
-          alignItems="center"
-          gap="2.5"
-          px="3"
-          py="2"
-          borderRadius="full"
-          bg="whiteAlpha.50"
-          border="1px solid"
-          borderColor="whiteAlpha.200"
-          fontFamily="mono"
-          fontSize={{ base: '11px', md: '12px' }}
-          color="app.text.muted"
-          textTransform="uppercase"
-          _hover={{
-            color: 'white',
-            bg: 'whiteAlpha.100',
-            textDecoration: 'none',
-          }}
-        >
-          <Icon as={PiSealCheckFill} color="cyan.400" boxSize="18px" />
-          Join over 30,000+ job seekers
-          <Icon as={FiArrowRight} boxSize="13px" />
-        </Link>
+        <HeroAnnouncement />
         <Heading
           as="h1"
           mt={{ base: 9, md: 14 }}
@@ -167,7 +134,7 @@ export function HeroSection() {
             <Text fontSize="sm" color="app.text.secondary">
               Trusted by{' '}
               <Box as="strong" color="white">
-                30,000+
+                {AUDIENCE_COUNT}
               </Box>{' '}
               job seekers
             </Text>

@@ -6,11 +6,12 @@ Verified locally on 2026-08-31, using the final `npm run build` output served by
 ## Build and static checks
 
 - `npm run build`: passed, including ESLint, TypeScript validation, all page
-  generation, and build tracing. Homepage: 27.5 kB route / 193 kB first-load JS.
+  generation, and build tracing. Latest homepage: 29.1 kB route / 195 kB first-load JS.
 - Standalone lint and TypeScript checks also passed during implementation.
 - `git diff --check`: passed.
-- No dependency, lockfile, provider configuration, product-link constants,
-  native-app, or backend changes.
+- The original overhaul made no dependency changes. The later back-to-school
+  revision adds only `lottie-web@5.13.0` and updates both lockfiles. Provider
+  configuration, product-link constants, native app, and backend are unchanged.
 - Existing legal page text and password-reset/email-verification implementations
   were checked against Git and are unchanged. Only their shared design and
   route metadata changed.
@@ -62,6 +63,29 @@ Verified locally on 2026-08-31, using the final `npm run build` output served by
 - Rebuilt successfully with lint and TypeScript validation. Rechecked widths
   320, 390, 768, 1024, and 1440 px with the answer expanded; no horizontal
   overflow in the document or workflow content. No browser warnings/errors.
+
+### Back-to-school offer and audience revision
+
+- Audience text and accessible labels share the user-specified 60,000+ count.
+  The landing source no longer contains the previous audience count.
+- Adapted the reference's active rotating hero pill: Back to School, Limited
+  Time Only, 40% off, linked to pricing. Its disabled popup/banner were not
+  enabled here, and no web-checkout coupon behavior was copied.
+- Rocket JSON is byte-identical to the reference (163,513 bytes; about 8 KB
+  gzip). Playback uses the dynamically imported light SVG player, frames
+  60–110 in alternating directions, with subframe interpolation disabled.
+- Build output puts the player in a deferred chunk (about 46 KB gzip), absent
+  from the initial homepage bundle. Loading is guarded by viewport visibility;
+  playback pauses off-screen, in hidden tabs, and with reduced motion.
+- Browser-verified rotation, pause/resume, changing/stable SVG frames during
+  play/pause, off-screen suspension, and the pricing anchor. Checked widths
+  320, 390, 768, 1024, and 1440 px with no document or pill overflow.
+- Hover/focus also pauses the announcement. Reduced-motion users get a static
+  offer and rocket frame; the 60,000+ trust line remains visible. This path was
+  reviewed in source; OS-level reduced-motion settings were not changed.
+- No browser warnings/errors during local interaction checks. Existing App
+  Store prices, offer redemption, subscriptions, and backend behavior remain
+  unchanged by this website promotion.
 
 ### Remaining limitations
 

@@ -48,16 +48,21 @@ release follows `docs/release-workflow.md`.
    crossed-out reference prices, and unconditional unlimited free-trial claims
    were removed. The checked-in StoreKit products have no introductory offer.
    The page says the app is free to download and that subscriptions/offers are
-   shown in-app. Supply current campaign terms before reintroducing promotions.
+   shown in-app. A subsequent user request adds Interview Pilot's current
+   Back to School / 40%-off hero pill and optimized rocket Lottie. The reference
+   popup and top banner are disabled and remain absent here. This is a website
+   promotion only: App Store products, eligibility, redemption, and billing
+   were not changed. The reference's web-checkout coupon promise is not copied.
 4. **Product differences.** Desktop/Android downloads, web checkout, platform
    login, stealth interview copilot features, multilingual claims, and live
    service/growth metrics were not copied. No equivalent destinations or data
    sources were established for this product. Every purchase CTA still goes to
    the existing 66 Days Prep App Store listing; it does not preselect a plan.
-5. **Proof and support details.** The existing 30,000+ users, 4.9 rating,
-   testimonials, social URLs, and `Support@sellwithuru.com` were retained. They
-   were not independently revalidated as current public facts. Confirm them
-   before release. Firm logos describe target employers, not endorsements.
+5. **Proof and support details.** Audience labels now use the user-specified
+   60,000+ count from `data/marketing.ts`. The existing 4.9 rating, testimonials,
+   social URLs, and `Support@sellwithuru.com` were retained; these were not
+   independently revalidated. Firm logos describe target employers, not
+   endorsements.
 6. **Additional content.** Interview Pilot's blog, comparisons, question-bank
    pages, and role guides are separate product/editorial content. They were not
    imported as 66 Days Prep pages or linked to nonexistent destinations.
