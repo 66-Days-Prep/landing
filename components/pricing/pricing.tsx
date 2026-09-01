@@ -28,9 +28,6 @@ export function Pricing() {
           <VStack
             key={plan.id}
             align="stretch"
-            alignSelf={
-              plan.description || plan.features.length > 0 ? 'stretch' : 'start'
-            }
             spacing="0"
             p="3"
             borderRadius="14px"
@@ -122,49 +119,43 @@ export function Pricing() {
                 </ButtonLink>
               </Box>
             </Box>
-            {(plan.description || plan.features.length > 0) && (
-              <Box px="3" pt="5" pb="3">
-                {plan.description && (
-                  <Text
-                    fontSize="sm"
-                    color="app.text.secondary"
-                    lineHeight="1.6"
-                    minH={{ base: 'auto', lg: '66px' }}
-                    mb="5"
-                  >
-                    {plan.description}
-                  </Text>
-                )}
-                {plan.features.length > 0 && (
-                  <VStack
-                    as="ul"
-                    listStyleType="none"
-                    align="stretch"
-                    spacing="3"
-                    m="0"
-                  >
-                    {plan.features.map((feature) => (
-                      <HStack as="li" key={feature} align="start" spacing="2.5">
-                        <Icon
-                          as={FiCheck}
-                          mt="3px"
-                          boxSize="16px"
-                          color="primary.400"
-                          flexShrink={0}
-                        />
-                        <Text
-                          fontSize="sm"
-                          lineHeight="1.5"
-                          color="app.text.secondary"
-                        >
-                          {feature}
-                        </Text>
-                      </HStack>
-                    ))}
-                  </VStack>
-                )}
-              </Box>
-            )}
+            <Box px="3" pt="5" pb="3">
+              <Text
+                fontSize="sm"
+                color="app.text.secondary"
+                lineHeight="1.6"
+                minH={{ base: 'auto', lg: '66px' }}
+                mb="5"
+              >
+                {plan.description}
+              </Text>
+              <VStack
+                as="ul"
+                listStyleType="none"
+                align="stretch"
+                spacing="3"
+                m="0"
+              >
+                {plan.features.map((feature) => (
+                  <HStack as="li" key={feature} align="start" spacing="2.5">
+                    <Icon
+                      as={FiCheck}
+                      mt="3px"
+                      boxSize="16px"
+                      color="primary.400"
+                      flexShrink={0}
+                    />
+                    <Text
+                      fontSize="sm"
+                      lineHeight="1.5"
+                      color="app.text.secondary"
+                    >
+                      {feature}
+                    </Text>
+                  </HStack>
+                ))}
+              </VStack>
+            </Box>
           </VStack>
         ))}
       </SimpleGrid>

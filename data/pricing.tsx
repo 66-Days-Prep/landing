@@ -25,13 +25,14 @@ export default {
       price: 'Free',
       period: 'to download',
       badge: '',
-      description: 'Try full features for FREE',
+      description:
+        'Download 66 Days Prep and explore your preparation options in the app.',
       action: 'Download free',
       recommended: false,
       features: [
-        'Explore all drills, tools, and the AI coach with no limits',
-        'No ads, no hidden fees',
-        'Cancel anytime before the trial ends',
+        'Available for iPhone and iPad',
+        'Explore the app before choosing a plan',
+        'Subscriptions and any available offers shown in-app',
       ],
     },
     {
