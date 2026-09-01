@@ -39,7 +39,6 @@ const columns = [
   {
     title: 'Get started',
     links: [
-      { label: 'iPhone & iPad app', href: APP_STORE_LINKS.ios },
       { label: 'AI practice', href: '/#ai-practice' },
       { label: 'Questions & answers', href: '/#faq' },
     ],

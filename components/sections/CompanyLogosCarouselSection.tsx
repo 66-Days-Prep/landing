@@ -81,12 +81,6 @@ export function CompanyLogosCarouselSection() {
           ))}
         </Flex>
       </Box>
-      <Flex justify="center" align="center" gap="3" mt="4">
-        <Text fontSize="xs" color="app.text.faint" textAlign="center">
-          Prepare for roles at leading firms. No affiliation or endorsement
-          implied.
-        </Text>
-      </Flex>
     </Container>
   )
 }

@@ -10,7 +10,6 @@ import {
   IconButtonProps,
   Link,
   Stack,
-  Text,
   useBreakpointValue,
 } from '@chakra-ui/react'
 import NextLink from 'next/link'
@@ -86,9 +85,6 @@ export function MobileNavContent({
                 Get on the App Store
               </ButtonLink>
             </Box>
-            <Text fontSize="sm" color="app.text.muted" px="4" pt="3">
-              Made for iPhone and iPad.
-            </Text>
           </Stack>
         </DrawerBody>
       </DrawerContent>

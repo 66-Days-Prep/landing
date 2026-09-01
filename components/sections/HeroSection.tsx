@@ -99,15 +99,12 @@ export function HeroSection() {
             See how it works
           </ButtonLink>
         </Stack>
-        <Text mt="3" fontSize="12px" color="app.text.muted">
-          For iPhone & iPad · In-app subscriptions available
-        </Text>
         <Stack
           direction={{ base: 'column', md: 'row' }}
           spacing={{ base: 3, md: 5 }}
           justify="center"
           align="center"
-          mt="6"
+          mt="7"
         >
           <HStack spacing="3">
             <HStack spacing="0" aria-hidden="true">

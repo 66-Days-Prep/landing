@@ -1,5 +1,3 @@
-// Prices match the checked-in iOS StoreKit configuration. Verify live App Store
-// prices before release; introductory-offer eligibility is determined by Apple.
 export const SUBSCRIPTION_PRICING = {
   monthly: 15.99,
   yearly: 49.99,
@@ -27,15 +25,10 @@ export default {
       price: 'Free',
       period: 'to download',
       badge: '',
-      description:
-        'Download 66 Days Prep and explore your preparation options in the app.',
+      description: '',
       action: 'Download free',
       recommended: false,
-      features: [
-        'Available for iPhone and iPad',
-        'Explore the app before choosing a plan',
-        'Subscriptions and any available offers shown in-app',
-      ],
+      features: [],
     },
     {
       id: 'monthly',
