@@ -25,10 +25,14 @@ export default {
       price: 'Free',
       period: 'to download',
       badge: '',
-      description: '',
+      description: 'Try full features for FREE',
       action: 'Download free',
       recommended: false,
-      features: [],
+      features: [
+        'Explore all drills, tools, and the AI coach with no limits',
+        'No ads, no hidden fees',
+        'Cancel anytime before the trial ends',
+      ],
     },
     {
       id: 'monthly',
