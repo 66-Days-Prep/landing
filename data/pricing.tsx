@@ -32,7 +32,6 @@ export default {
       features: [
         'Available for iPhone and iPad',
         'Explore the app before choosing a plan',
-        'Subscriptions and any available offers shown in-app',
       ],
     },
     {
